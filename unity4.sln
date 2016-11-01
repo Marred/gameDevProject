@@ -5,8 +5,6 @@ Project("{B33D0D23-D11D-DCD3-3784-883CFE2553C1}") = "unity4", "Assembly-CSharp-f
 EndProject
 Project("{B33D0D23-D11D-DCD3-3784-883CFE2553C1}") = "unity4", "Assembly-CSharp.csproj", "{634395CC-A079-3E93-B099-A393C9841A41}"
 EndProject
-Project("{B33D0D23-D11D-DCD3-3784-883CFE2553C1}") = "unity4", "Assembly-CSharp-Editor.csproj", "{AFA75A8D-BC7F-3621-6050-6985919D7CF9}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{634395CC-A079-3E93-B099-A393C9841A41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{634395CC-A079-3E93-B099-A393C9841A41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{634395CC-A079-3E93-B099-A393C9841A41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AFA75A8D-BC7F-3621-6050-6985919D7CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AFA75A8D-BC7F-3621-6050-6985919D7CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AFA75A8D-BC7F-3621-6050-6985919D7CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AFA75A8D-BC7F-3621-6050-6985919D7CF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

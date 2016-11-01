@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraFollow : MonoBehaviour {
 	public GameObject player;
 	Camera myCamera;
-	public float cameraOffset = 5.0f;
+	public float cameraOffset = 1.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -13,8 +13,9 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//Debug.Log (player.transform.position.x);
-		Vector3 cameraPosition = new Vector3 (player.transform.position.x, myCamera.transform.position.y, myCamera.transform.position.z);
+		//Śledzenie postaci wzdłuż wektora X i Y z offsetem
+		Vector3 cameraPosition = new Vector3 (player.transform.position.x, player.transform.position.y + cameraOffset, myCamera.transform.position.z);
+
 		myCamera.transform.position = cameraPosition;
 	}
 }
