@@ -71,10 +71,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
-    <Compile Include="Assets\Scripts\LaserBolt.cs" />
-    <Compile Include="Assets\Scripts\Mover.cs" />
+    <Compile Include="Assets\Scripts\LaserScripts\Mover.cs" />
+    <Compile Include="Assets\Scripts\LaserScripts\SpawnBolt.cs" />
     <Compile Include="Assets\Scripts\PlayerLevel.cs" />
-    <Compile Include="Assets\Scripts\SpawnBolt.cs" />
     <Compile Include="Assets\Scripts\ThirdPersonCharacter.cs" />
     <Compile Include="Assets\Scripts\ThirdPersonUserControl.cs" />
   </ItemGroup>

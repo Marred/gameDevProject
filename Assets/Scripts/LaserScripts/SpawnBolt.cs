@@ -4,15 +4,13 @@ using System.Collections;
 public class SpawnBolt : MonoBehaviour {
 
 
-    GameObject bolt;
-    Transform spawn;
+   public GameObject bolt;
+    
+     public Transform spawn;
     private float nextFire = 0.5f;
     public float fireRate;
     // Use this for initialization
-    void Start () {
-	
-	}
-	
+   
 	
 	void Update ()
     {
@@ -21,8 +19,10 @@ public class SpawnBolt : MonoBehaviour {
             nextFire = Time.time + fireRate;
             
             //GameObject clone = 
-            Instantiate(bolt, spawn.position, spawn.rotation); //as GameObject;//inicjalizacja jako gameObject
-            // inicjalizacja pocisku objekt pozycja spawnu i jego ustawienie
+           GameObject bolt1 = Instantiate(bolt, spawn.position, spawn.rotation) as GameObject; //as GameObject;//inicjalizacja jako gameObject
+                                                                                             // inicjalizacja pocisku obiekt pozycja spawnu i jego ustawienie
+            bolt1.transform.Rotate(Vector3.right); // korekta obrotu pocisku 
+            Destroy(bolt1, 4.0f);  // po 4 sekundach  pocisk znika
         }
     }
 }
