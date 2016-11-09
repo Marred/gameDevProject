@@ -5,8 +5,9 @@ using UnityEngine;
 	[RequireComponent(typeof(Animator))]
 	public class ThirdPersonCharacter : MonoBehaviour
 	{
-		[SerializeField] float m_MovingTurnSpeed = 360;
-		[SerializeField] float m_StationaryTurnSpeed = 180;
+		//usuniete do obracania -90 i 90 stopni w y
+		//[SerializeField] float m_MovingTurnSpeed = 360;
+		//[SerializeField] float m_StationaryTurnSpeed = 180;
 		[SerializeField] float m_JumpPower = 12f;
 		[Range(1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
 		[SerializeField] float m_RunCycleLegOffset = 0.2f; //specific to the character in sample assets, will need to be modified to work with others
@@ -178,8 +179,12 @@ using UnityEngine;
 		void ApplyExtraTurnRotation()
 		{
 			// help the character turn faster (this is in addition to root rotation in the animation)
-			float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
-			transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
+			//float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
+			//transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
+
+			//beta fix - troche na skroty, na pewno trzeba poprawic, bo jest to niewydajne
+			if(m_TurnAmount!=0f)
+				transform.rotation = Quaternion.AngleAxis(m_TurnAmount>0?-90:90, Vector3.up);
 		}
 
 

@@ -35,6 +35,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             bool crouch = Input.GetKey(KeyCode.C);
 
             m_Move = h*Vector3.right;
+			//Debug.Log (m_Move);
 
 			// walk speed multiplier
 	        if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
