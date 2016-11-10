@@ -18,6 +18,10 @@ public class EnemyMovement : MonoBehaviour
     //Odstęp w jakim zatrzyma się obiekt wroga od gracza.
     public float distanceToStop = 2f;
 
+    public float jumpSpeed = 5f;
+
+    public bool isTriggered = false;
+
     private Transform enemy;
     private Transform player;
     private bool lookAtMe = false;
@@ -25,7 +29,6 @@ public class EnemyMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    // Use this for initialization
     void Start()
     {
         enemy = transform;
@@ -90,14 +93,24 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
-    //odpalany przez trigger na przeciwniku
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider coll)
     {
-        //tag Obstacle musi znaleźć się na każdej ścianie
-        if (other.tag == "Obstacle")
+        if (coll.tag == "Obstacle")
         {
-            //dodaje siłę na obiekt: transform.kierunek * siła, ForceMode.TypSiły
-            rb.AddForce(transform.up * 2, ForceMode.Impulse);
+            if (isTriggered == false)
+            {
+                //dodaje siłę na obiekt: transform.kierunek * siła, ForceMode.TypSiły
+                rb.AddForce(transform.up * jumpSpeed, ForceMode.Impulse);
+                isTriggered = true;
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider coll)
+    {
+        if (coll.tag == "Obstacle")
+        {
+            isTriggered = false;
         }
     }
 }
