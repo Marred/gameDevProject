@@ -10,25 +10,29 @@ public class PauseMenuScript : MonoBehaviour
 
     void Update()
     {
-
+        // włącza menu pauzy,wyłącza HUD, zatrzymuje grę
         if (isPaused)
         {
             pauseMenu.SetActive(true);
             hud.SetActive(false);
             Time.timeScale = 0;
         }
+        //wyłącza menu pauzy, włącza HUD, wznawia grę
         else
         {
             pauseMenu.SetActive(false);
             hud.SetActive(true);
             Time.timeScale = 1;
         }
+
+        //pauzowanie klawiszem escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;
         }
     }
 
+    //wznawianie poprzez opcję w menu
     public void Resume()
     {
         isPaused = false;

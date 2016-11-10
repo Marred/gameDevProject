@@ -17,16 +17,18 @@ public class EnemyMovement : MonoBehaviour
     public float rangeOfVision = 10f;
     //Odstęp w jakim zatrzyma się obiekt wroga od gracza.
     public float distanceToStop = 2f;
-
+    //Siła skoku
     public float jumpSpeed = 5f;
-
+    //True jeśli pokonuje przeszkodę, blokuje ponowny skok przy tej samej przeszkodzie
     public bool isTriggered = false;
 
     private Transform enemy;
     private Transform player;
+    //True obraca w stronę gracza
     private bool lookAtMe = false;
+    //Współrzędne gracza
     private Vector3 playerXYZ;
-
+    //Komponent rigidbody na przeciwniku
     Rigidbody rb;
 
     void Start()
@@ -69,11 +71,11 @@ public class EnemyMovement : MonoBehaviour
             lookAtMe = true;
         }
 
-        patrzNaMnie();
+        LookAtMe();
     }
 
     //Wróg może nie mieć potrzeby sie pruszać bo jest blisko gracza ale niech się obraca w jego stronę.
-    void patrzNaMnie()
+    void LookAtMe()
     {
         if (smoothRotation && lookAtMe == true)
         {
@@ -95,8 +97,10 @@ public class EnemyMovement : MonoBehaviour
 
     void OnTriggerEnter(Collider coll)
     {
+        //sprawdza, czy element powodujący kolizję to przeszkoda do przeskoczenia
         if (coll.tag == "Obstacle")
         {
+            //sprawdza, czy przy tej kolizji nie zostało jeszcze wykonane AddForce
             if (isTriggered == false)
             {
                 //dodaje siłę na obiekt: transform.kierunek * siła, ForceMode.TypSiły
@@ -106,6 +110,7 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    //resetuje isTriggered po pokonaniu przeszkody, przeciwnik gotowy do pokonania następnej
     void OnTriggerExit(Collider coll)
     {
         if (coll.tag == "Obstacle")
