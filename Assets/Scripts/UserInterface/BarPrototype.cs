@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/// <summary>
+/// Klasa obsługująca paski statystyk typu Filled i Sliced.
+/// </summary>
 public class BarPrototype : MonoBehaviour 
 {
 	//Wypełnienie paska od 0 do 1
@@ -15,7 +17,10 @@ public class BarPrototype : MonoBehaviour
 	//Tekst -> Sprite
 	[SerializeField] private Text valueText;
 
-	//KOLORY:
+	/// <summary>
+	/// <para>Umożliwia przejście z koloru do koloru.</para>
+	/// <para>Przykład: pasek życia przechodzi z zielonego do czerwonego wraz ze zmniejszeniem wartości</para>
+	/// </summary>
 	[SerializeField] private bool lerpColors;
 	[SerializeField] private Color fullColor;
 	[SerializeField] private Color lowColor;
@@ -67,17 +72,24 @@ public class BarPrototype : MonoBehaviour
 				content.fillAmount = newSize;
 
 		}	
-
 		//jesli zaznaczy sie bool lerpColors
 		if( lerpColors )
 			content.color = Color.Lerp (lowColor, fullColor, fillAmount); //Funkcja ktora bierze 'srodkowa' (fillAmount) miedzy dwoma kolorami
 	}
 
+
+	/// <summary>
+	/// Skaluje wartości do wybranej. Algorytm nieautorski.
+	/// </summary>
+	/// <param name="value">Aktualna wartość</param>
+	/// <param name="inMin">Minimalna wartość</param>
+	/// <param name="inMax">Maksymalna wartość</param>
+	/// <param name="outMin">Wyjściowa minimalna</param>
+	/// <param name="outMax">Wyjściowa maksymalna</param>
 	private float Map( float value, float inMin, float inMax, float outMin, float outMax )
 	{
 		return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-		/*
-		 *  PRZYKŁAD obliczania skali dla dowolnych wartości
+		/*  PRZYKŁAD obliczania skali dla dowolnych wartości
 			Max Health: 	100
 			Current Health: 80
 			Min Health:		0

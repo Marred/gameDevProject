@@ -1,48 +1,48 @@
 using System;
 using UnityEngine;
 
-namespace UnityStandardAssets.Characters.ThirdPerson
+[RequireComponent (typeof(ThirdPersonCharacter))]
+public class ThirdPersonUserControl : MonoBehaviour
 {
-    [RequireComponent(typeof (ThirdPersonCharacter))]
-    public class ThirdPersonUserControl : MonoBehaviour
-    {
-        private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
-        private Vector3 m_Move;
-        private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+	private ThirdPersonCharacter m_Character;
+	private Vector3 m_Move;
+	private bool m_Jump;
 
         
-        private void Start()
-        {
-            // get the third person character ( this should never be null due to require component )
-            m_Character = GetComponent<ThirdPersonCharacter>();
-        }
+	private void Start ()
+	{
+		// Sprawdza, czy doczepiony został skrypt ThirdPersonCharacter.cs
+		m_Character = GetComponent<ThirdPersonCharacter> ();
+	}
 
 
-        private void Update()
-        {
-            if (!m_Jump)
-            {
-                m_Jump = Input.GetButtonDown("Jump");
-            }
-        }
+	private void Update ()
+	{
+		//Ten if został użyty w Update, a nie w FixedUpdate, ponieważ spacja naciskana jest tylko raz, więc musi być wyłapywana przez każdą klatkę.
+		if (!m_Jump) {
+			m_Jump = Input.GetButtonDown ("Jump");
+		}
+	}
 
 
-        // Fixed update is called in sync with physics
-        private void FixedUpdate()
-        {
-            // read inputs
-            float h = Input.GetAxis("Horizontal");
-            bool crouch = Input.GetKey(KeyCode.C);
+	// Fixed update is called in sync with physics
+	private void FixedUpdate ()
+	{
+		//Poruszanie się horyzontalnie. Przyciski: A i D
+		float h = Input.GetAxis ("Horizontal");
 
-            m_Move = h*Vector3.right;
-			//Debug.Log (m_Move);
+		//Kucanie
+		bool crouch = Input.GetKey (KeyCode.C);
 
-			// walk speed multiplier
-	        if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+		//Wyzerowanie wektora Y i Z - postać może poruszać się tylko po osi X
+		m_Move = h * Vector3.right;
 
-            // pass all parameters to the character control script
-            m_Character.Move(m_Move, crouch, m_Jump);
-            m_Jump = false;
-        }
-    }
+		// Chód/Sprint (0.5 / 2)
+		if (Input.GetKey (KeyCode.LeftShift))
+			m_Move *= 0.5f;
+
+		// pass all parameters to the character control script
+		m_Character.Move (m_Move, crouch, m_Jump);
+		m_Jump = false;
+	}
 }

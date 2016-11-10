@@ -3,18 +3,20 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
-	[SerializeField] private Stat health;
+	[SerializeField] private Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
 	[SerializeField] private Stat exp;
 	[SerializeField] private Stat oxygen;
 	[SerializeField] private Stat playerLevel;
 	[SerializeField] private Text playerLevelText;
 
 	void Awake() {
+		//Ustawienie wartości z inspektora
 		health.Initialize ();
 		exp.Initialize ();
 		oxygen.Initialize ();
 		playerLevel.Initialize ();
 
+		//Wstępnie. System doświadczenia. Dla każdego levela ilość wymaganego doświadczenia wzrasta 5-krotnie
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0; //zmienic gdyby wprowadzone save'y
 	}
@@ -25,9 +27,10 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Q)) {
+		//Testowe odejmowanie życia
+		/*if (Input.GetKeyDown (KeyCode.Q)) {
 			health.CurrentVal -= 10;
-		}
+		}*/
 	
 	}
 
@@ -43,6 +46,9 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Dodaje doświadczenie.
+	/// </summary>
 	void ExpUp()
 	{
 		exp.CurrentVal++;
@@ -51,6 +57,9 @@ public class Player : MonoBehaviour {
 
 
 	}
+	/// <summary>
+	/// Dodaje poziom graczowi.
+	/// </summary>
 	void LevelUp()
 	{
 		playerLevel.CurrentVal += 1;
