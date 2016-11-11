@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  gm: {fileID: 1000012110477044}
+  laserBolt: {fileID: 1000012110477044}
