@@ -24,7 +24,7 @@ GameObject:
   - 114: {fileID: 114000012214340554}
   - 54: {fileID: 54000011838879846}
   - 65: {fileID: 65000011308968648}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LaserBolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,3 +120,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   laserBolt: {fileID: 1000012110477044}
+  fireMin: 4
+  fireMax: 9

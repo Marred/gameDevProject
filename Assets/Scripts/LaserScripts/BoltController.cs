@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 [System.Serializable]
 public class BoltController : MonoBehaviour
 {
-   
-    
-    public float speed=13; // przypisanie w menu minusowej predkosci
-    Rigidbody rb;
+    [SerializeField]private System.Random damageTake = new System.Random(); 
+    [SerializeField]private float speed=13; // przypisanie w menu minusowej predkosci
+    private Rigidbody rb;
     [SerializeField]private  GameObject laserBolt; // należy przypisać laserBolt 
-  
+    [SerializeField]private int fireMin;
+    [SerializeField]private int fireMax;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,10 +24,11 @@ public class BoltController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
       {
+        float dmg = damageTake.Next(fireMin, fireMax);
           if (other.gameObject.tag == "Enemy")
           {
-            other.transform.SendMessage("Damage",10f);
-
+            other.transform.SendMessage("Damage",dmg);
+            Debug.Log("zadane dmg " +dmg);
             Destroy(laserBolt);
           }
       }
