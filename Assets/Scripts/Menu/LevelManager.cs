@@ -3,10 +3,15 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 
-	public void SetScene (string name) {
+	public void SetScene () {
 
-        Application.LoadLevel(name);
+        Application.LoadLevel(1);
 
     }
+
+	public void Quit()
+	{
+		Application.Quit();
+	}
 
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 [System.Serializable]
 public class EnemyHP : MonoBehaviour {
-    float enemyHealth = 50f;
+    float enemyHealth = 15f;
     [SerializeField]private GameObject enemy;
     // Use this for initialization
     void Start () {
