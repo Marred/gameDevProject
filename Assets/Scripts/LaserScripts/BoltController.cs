@@ -24,9 +24,9 @@ public class BoltController : MonoBehaviour
       {
           if (other.gameObject.tag == "Enemy")
           {
-              Destroy(other.gameObject);
-          
-             Destroy(laserBolt);
+            other.transform.SendMessage("Damage",10f);
+
+            Destroy(laserBolt);
           }
       }
     void OnCollisionEnter()

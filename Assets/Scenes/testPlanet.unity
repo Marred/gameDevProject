@@ -101,7 +101,7 @@ GameObject:
   - 224: {fileID: 85377913}
   - 222: {fileID: 85377915}
   - 114: {fileID: 85377914}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,6 +467,7 @@ GameObject:
   - 54: {fileID: 582376697}
   - 65: {fileID: 582376696}
   - 114: {fileID: 582376695}
+  - 114: {fileID: 582376702}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -582,6 +583,18 @@ Transform:
   - {fileID: 1341901669}
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &582376702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 582376694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37378819c025cee41be405d3ffcbbaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 582376694}
 --- !u!1001 &589258565
 Prefab:
   m_ObjectHideFlags: 0
@@ -1001,7 +1014,7 @@ GameObject:
   - 224: {fileID: 662824775}
   - 222: {fileID: 662824777}
   - 114: {fileID: 662824776}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1079,7 +1092,7 @@ GameObject:
   - 224: {fileID: 711935297}
   - 222: {fileID: 711935299}
   - 114: {fileID: 711935298}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Game name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1171,7 @@ GameObject:
   - 222: {fileID: 763738717}
   - 114: {fileID: 763738716}
   - 114: {fileID: 763738715}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1339,7 +1352,7 @@ GameObject:
   - 224: {fileID: 819206731}
   - 222: {fileID: 819206733}
   - 114: {fileID: 819206732}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1421,7 @@ GameObject:
   - 224: {fileID: 820121714}
   - 222: {fileID: 820121716}
   - 114: {fileID: 820121715}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1929,7 +1942,7 @@ GameObject:
   - 222: {fileID: 1429946333}
   - 114: {fileID: 1429946332}
   - 114: {fileID: 1429946331}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2061,7 +2074,7 @@ GameObject:
   - 222: {fileID: 1483800982}
   - 114: {fileID: 1483800981}
   - 114: {fileID: 1483800980}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2799,7 +2812,7 @@ GameObject:
   - 223: {fileID: 1914807756}
   - 114: {fileID: 1914807755}
   - 114: {fileID: 1914807754}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2902,7 +2915,7 @@ GameObject:
   - 222: {fileID: 1943324304}
   - 114: {fileID: 1943324303}
   - 114: {fileID: 1943324302}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3028,7 +3041,7 @@ GameObject:
   - 224: {fileID: 2016469878}
   - 222: {fileID: 2016469880}
   - 114: {fileID: 2016469879}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
