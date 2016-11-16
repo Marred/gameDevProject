@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1645543, g: 0.10806029, b: 0.22375378, a: 1}
+  m_IndirectSpecularColor: {r: 0.16454673, g: 0.10806806, b: 0.22374403, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - 33: {fileID: 234669971}
   - 65: {fileID: 234669970}
   - 23: {fileID: 234669969}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,7 +1557,7 @@ GameObject:
   - 65: {fileID: 1023175009}
   - 23: {fileID: 1023175008}
   - 65: {fileID: 1023175007}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube 2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -2571,7 +2571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bolt: {fileID: 1000012110477044, guid: e6eb296781385a742a92c189ce3a4093, type: 2}
-  audio: {fileID: 0}
+  fireAudio: {fileID: 0}
   spawn: {fileID: 1315942350}
   fireRate: 0.6
 --- !u!82 &1721298162
