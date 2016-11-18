@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000013553167418}
   - 136: {fileID: 136000010723752326}
   - 23: {fileID: 23000011942572576}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Nos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - 65: {fileID: 65000010570401914}
   - 114: {fileID: 114000012534043390}
   - 114: {fileID: 114000012275420382}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}

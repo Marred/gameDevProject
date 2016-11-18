@@ -24,6 +24,7 @@ public class BoltController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
       {
+     
         float dmg = damageTake.Next(fireMin, fireMax);
           if (other.gameObject.tag == "Enemy")
           {
@@ -34,7 +35,8 @@ public class BoltController : MonoBehaviour
       }
     void OnCollisionEnter()
     {   
-            Destroy(this.laserBolt);    
+          Destroy(this.laserBolt);   
+            
     }
    
 

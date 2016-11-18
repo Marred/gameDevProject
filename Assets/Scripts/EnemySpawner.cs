@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemySpawner : MonoBehaviour {
 
 	public GameObject enemy;
-	public float repeatTime = 5f;
+	public float repeatTime = 12f;
 
 	// Use this for initialization
 	void Start () {
