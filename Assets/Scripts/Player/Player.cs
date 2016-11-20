@@ -4,13 +4,13 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     [SerializeField]public Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
-    public static Stat Health { get; set; }
+    public Stat Health { get; set; }
     [SerializeField]public Stat exp;
-    public static Stat Exp { get; set; }
+    public Stat Exp { get; set; }
     [SerializeField]public Stat oxygen;
-    public static Stat Oxygen { get; set; }
+    public Stat Oxygen { get; set; }
     [SerializeField]public Stat playerLevel;
-    public static Stat PlayerLevel { get; set; }
+    public Stat PlayerLevel { get; set; }
     [SerializeField] private Text playerLevelText;
     [SerializeField] private float oxygenDelay = 3f;
 

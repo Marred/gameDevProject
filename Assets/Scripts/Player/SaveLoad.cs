@@ -18,10 +18,10 @@ public class SaveLoad : MonoBehaviour
         PlayerPrefs.SetFloat("Y", transform.position.y);
         PlayerPrefs.SetFloat("Z", transform.position.z);
 
-        PlayerPrefs.SetFloat("Health", Player.Health.CurrentVal);
-        PlayerPrefs.SetFloat("Exp", Player.Exp.CurrentVal);
-        PlayerPrefs.SetFloat("Oxygen", Player.Oxygen.CurrentVal);
-        PlayerPrefs.SetFloat("PlayerLevel", Player.PlayerLevel.CurrentVal);
+        PlayerPrefs.SetFloat("Health", player.Health.CurrentVal);
+        PlayerPrefs.SetFloat("Exp", player.Exp.CurrentVal);
+        PlayerPrefs.SetFloat("Oxygen", player.Oxygen.CurrentVal);
+        PlayerPrefs.SetFloat("PlayerLevel", player.PlayerLevel.CurrentVal);
 
         Debug.Log("Saved");
 
@@ -34,10 +34,10 @@ public class SaveLoad : MonoBehaviour
         float y = PlayerPrefs.GetFloat("Y");
         float z = PlayerPrefs.GetFloat("Z");
 
-        Player.Health.CurrentVal = PlayerPrefs.GetFloat("Health");
-        Player.Exp.CurrentVal = PlayerPrefs.GetFloat("Exp");
-        Player.Oxygen.CurrentVal = PlayerPrefs.GetFloat("Oxygen");
-        Player.PlayerLevel.CurrentVal = PlayerPrefs.GetFloat("PlayerLevel");
+        player.Health.CurrentVal = PlayerPrefs.GetFloat("Health");
+        player.Exp.CurrentVal = PlayerPrefs.GetFloat("Exp");
+        player.Oxygen.CurrentVal = PlayerPrefs.GetFloat("Oxygen");
+        player.PlayerLevel.CurrentVal = PlayerPrefs.GetFloat("PlayerLevel");
 
         transform.position = new Vector3(x, y, z);
 
