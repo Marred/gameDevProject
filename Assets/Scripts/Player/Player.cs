@@ -3,11 +3,15 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
-	[SerializeField] private Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
-	[SerializeField] private Stat exp;
-	[SerializeField] private Stat oxygen;
-	[SerializeField] private Stat playerLevel;
-	[SerializeField] private Text playerLevelText;
+    [SerializeField]public Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
+    public static Stat Health { get; set; }
+    [SerializeField]public Stat exp;
+    public static Stat Exp { get; set; }
+    [SerializeField]public Stat oxygen;
+    public static Stat Oxygen { get; set; }
+    [SerializeField]public Stat playerLevel;
+    public static Stat PlayerLevel { get; set; }
+    [SerializeField] private Text playerLevelText;
     [SerializeField] private float oxygenDelay = 3f;
 
     void Awake() {
