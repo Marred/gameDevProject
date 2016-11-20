@@ -8,8 +8,9 @@ public class Player : MonoBehaviour {
 	[SerializeField] private Stat oxygen;
 	[SerializeField] private Stat playerLevel;
 	[SerializeField] private Text playerLevelText;
+    [SerializeField] private float oxygenDelay = 3f;
 
-	void Awake() {
+    void Awake() {
 		//Ustawienie wartości z inspektora
 		health.Initialize ();
 		exp.Initialize ();
@@ -22,28 +23,46 @@ public class Player : MonoBehaviour {
 	}
 	// Use this for initialization
 	void Start () {
+        StartCoroutine(OxygenOut());
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		//Testowe odejmowanie życia
-		/*if (Input.GetKeyDown (KeyCode.Q)) {
+    // Update is called once per frame
+    void Update()
+    {
+        //Testowe odejmowanie życia
+        /*if (Input.GetKeyDown (KeyCode.Q)) {
 			health.CurrentVal -= 10;
 		}*/
-	
-	}
+      
 
+    }
+    IEnumerator OxygenOut()
+    {
 
-	void OnTriggerEnter(Collider other) // funkcja do wykrywania wejscia na triggera
+        while (true)
+        {
+            yield return new WaitForSeconds(oxygenDelay);
+            oxygen.CurrentVal -= 5;
+        }
+        
+    }
+
+    void OnTriggerEnter(Collider other) // funkcja do wykrywania wejscia na triggera
 	{
 		if (other.gameObject.CompareTag("ExpOrb"))  //jeśli napotkany trigger ma tag "ExpOrb"
 		{
 			Destroy(other.gameObject);
-			//deaktywujemy objekt który napotkamy
+			//niszczymy objekt który napotkamy
 
 			ExpUp();
 		}
+        else if(other.gameObject.CompareTag("OxygenOrb"))
+        {
+
+            oxygen.CurrentVal = 100f;
+            Destroy(other.gameObject);
+
+        }
 	}
 
 	/// <summary>
@@ -67,9 +86,9 @@ public class Player : MonoBehaviour {
 		exp.CurrentVal = 0;
 
 		playerLevelText.text = playerLevel.CurrentVal.ToString() + " lvl";
-		//strenght += playerLevel;
-		//stamina += playerLevel;
+        //strength += playerLevel;
+        //stamina += playerLevel;
 
 
-	}
+    }
 }
