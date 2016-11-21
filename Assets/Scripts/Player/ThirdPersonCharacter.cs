@@ -6,11 +6,11 @@ using UnityEngine;
 public class ThirdPersonCharacter : MonoBehaviour
 {
 	//usuniete do obracania -90 i 90 stopni w y
-	//[SerializeField] float m_MovingTurnSpeed = 360;
-	//[SerializeField] float m_StationaryTurnSpeed = 180;
+
 	[SerializeField] float m_JumpPower = 12f;
 	[Range (1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
 	[SerializeField] float m_RunCycleLegOffset = 0.2f;
+
 	//specific to the character in sample assets, will need to be modified to work with others
 	[SerializeField] float m_MoveSpeedMultiplier = 1f;
 	[SerializeField] float m_AnimSpeedMultiplier = 1f;
@@ -251,25 +251,16 @@ public class ThirdPersonCharacter : MonoBehaviour
 		}
 	}
 
-	void ApplyExtraTurnRotation ()
-	{
-		// help the character turn faster (this is in addition to root rotation in the animation)
-		//float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
-		//transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
-
-		//beta fix - troche na skroty, na pewno trzeba poprawic, bo jest to niewydajne
-		if (m_TurnAmount != 0f)
-			transform.rotation = Quaternion.AngleAxis (m_TurnAmount > 0 ? -90 : 90, Vector3.up);
-	}
-
-
 	public void OnAnimatorMove ()
 	{
 		//Debug.Log (m_Animator.deltaPosition);
 		// we implement this function to override the default root motion.
 		// this allows us to modify the positional speed before it's applied.
 		if ( Time.deltaTime > 0) {
+			
 			float moveSpeed = m_MoveSpeedMultiplier;
+
+			//naprawiony skok
 			Vector3 asdAsd = m_Animator.deltaPosition;
 
 			if (!m_IsGrounded)

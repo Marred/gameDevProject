@@ -16,7 +16,7 @@ public class EnemyHP : MonoBehaviour {
     void Damage(float dmg)
     {
         enemyHealth -= dmg;
-        Debug.Log(enemyHealth);
+        Debug.Log("EnemyHP.cs: " + enemyHealth);
         if (enemyHealth<=0)
         {
             Destroy(this.enemy);

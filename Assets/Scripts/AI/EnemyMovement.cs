@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
@@ -82,6 +82,7 @@ public class EnemyMovement : MonoBehaviour
 
             //Quaternion.LookRotation - zwraca quaternion na podstawie werktora kierunku/pozycji. 
             //Potrzebujemy go aby obrócić wroga w stronę gracza.
+
             Quaternion rotation = Quaternion.LookRotation(playerXYZ - enemy.position);
             //Obracamy wroga w stronę gracza.
             enemy.rotation = Quaternion.Slerp(enemy.rotation, rotation, Time.deltaTime * rotationSpeed);

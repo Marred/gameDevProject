@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
 	public void SetScene () {
 
-        Application.LoadLevel(1);
+        SceneManager.LoadScene(1);
 
     }
 

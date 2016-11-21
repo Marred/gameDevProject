@@ -4,15 +4,12 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     [SerializeField]public Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
-    public Stat Health { get; set; }
     [SerializeField]public Stat exp;
-    public Stat Exp { get; set; }
     [SerializeField]public Stat oxygen;
-    public Stat Oxygen { get; set; }
     [SerializeField]public Stat playerLevel;
-    public Stat PlayerLevel { get; set; }
-    [SerializeField] private Text playerLevelText;
-    [SerializeField] private float oxygenDelay = 3f;
+
+	[SerializeField]private Text playerLevelText;
+    [SerializeField]private float oxygenDelay = 3f;
 
     void Awake() {
 		//Ustawienie wartości z inspektora
@@ -34,9 +31,7 @@ public class Player : MonoBehaviour {
     void Update()
     {
         //Testowe odejmowanie życia
-        /*if (Input.GetKeyDown (KeyCode.Q)) {
-			health.CurrentVal -= 10;
-		}*/
+
       
 
     }
@@ -92,7 +87,5 @@ public class Player : MonoBehaviour {
 		playerLevelText.text = playerLevel.CurrentVal.ToString() + " lvl";
         //strength += playerLevel;
         //stamina += playerLevel;
-
-
     }
 }
