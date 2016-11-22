@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour
 {
@@ -39,14 +40,9 @@ public class PauseMenuScript : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void Restart()
-    {
-        Application.LoadLevel(Application.loadedLevel);
-    }
-
     public void MainMenu()
     {
-        Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
 
     public void Quit()
