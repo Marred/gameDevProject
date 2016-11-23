@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[System.Serializable]
+
 public class SpawnBolt : MonoBehaviour {
 
 
     [SerializeField] private GameObject bolt;
-     [SerializeField] AudioSource fireAudio;
+    [SerializeField] private AudioSource fireAudio;
     [SerializeField] private Transform spawn;
     
     private float nextFire = 0.5f;
     public float fireRate;
-    // Use this for initialization
+ 
     void Start()
     {
         fireAudio = GetComponent<AudioSource>();
