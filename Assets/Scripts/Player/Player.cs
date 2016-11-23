@@ -7,8 +7,8 @@ public class Player : MonoBehaviour {
     [SerializeField]public Stat exp;
     [SerializeField]public Stat oxygen;
     [SerializeField]public Stat playerLevel;
-
-	[SerializeField]private Text playerLevelText;
+    [SerializeField]private GameObject lvlupAnimation;
+    [SerializeField]private Text playerLevelText;
     [SerializeField]private float oxygenDelay = 3f;
 
     void Awake() {
@@ -80,7 +80,12 @@ public class Player : MonoBehaviour {
 	/// </summary>
 	void LevelUp()
 	{
-		playerLevel.CurrentVal += 1;
+
+
+        //inicjalizacja animacji lvlUp
+        GameObject lvlUpAnim = Instantiate(lvlupAnimation, transform.position, Quaternion.identity,this.transform) as GameObject;
+
+        playerLevel.CurrentVal += 1;
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0;
 
