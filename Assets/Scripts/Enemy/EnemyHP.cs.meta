@@ -1,13 +1,11 @@
 fileFormatVersion: 2
 guid: 37378819c025cee41be405d3ffcbbaa4
-timeCreated: 1479841290
+timeCreated: 1479902347
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - dmgtext: {fileID: 1000013359922172, guid: cbf5e43fc7ff32147b9445c4f1b82147, type: 2}
-  - enemy: {fileID: 1000012035261260, guid: 16611af1dbed40d47aa994260e876e31, type: 2}
-  - enemyT: {fileID: 4000010047724738, guid: 16611af1dbed40d47aa994260e876e31, type: 2}
+  - dmgtext: {fileID: 1000011754910636, guid: cbf5e43fc7ff32147b9445c4f1b82147, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     //Prędkość poruszania się przeciwnika.
     public float movementSpeed = 5.0f;
     //Odległość na jaką widzi przeciwnik.
-    public float rangeOfVision = 10f;
+    public float rangeOfVision = 100f;
     //Odstęp w jakim zatrzyma się obiekt wroga od gracza.
     public float distanceToStop = 2f;
     //Siła skoku

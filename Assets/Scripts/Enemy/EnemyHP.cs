@@ -5,7 +5,7 @@ public class EnemyHP : MonoBehaviour
 {
     [SerializeField]private GameObject dmgtext;
     [SerializeField]private float enemyHealth = 15f;
-    private Vector3 polozenie = new Vector3(-1, 0, 0);
+    private Vector3 polozenie = new Vector3(0, 0, 0);
     private Transform enemyTransform;
   
     void Start()
