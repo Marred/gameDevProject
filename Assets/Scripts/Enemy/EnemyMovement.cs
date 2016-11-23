@@ -16,20 +16,25 @@ public class EnemyMovement : MonoBehaviour
     //Odległość na jaką widzi przeciwnik.
     public float rangeOfVision = 100f;
     //Odstęp w jakim zatrzyma się obiekt wroga od gracza.
-    public float distanceToStop = 2f;
+    public float distanceToStop = 4f;
     //Siła skoku
-    public float jumpSpeed = 5f;
+    public float jumpSpeed = 3f;
     //True jeśli pokonuje przeszkodę, blokuje ponowny skok przy tej samej przeszkodzie
     public bool isTriggered = false;
+    public bool isAttacking = false;
 
     private Transform enemy;
-    private Transform player;
+    private Transform playertransform;
     //True obraca w stronę gracza
     private bool lookAtMe = false;
     //Współrzędne gracza
     private Vector3 playerXYZ;
     //Komponent rigidbody na przeciwniku
     Rigidbody rb;
+
+    private Player player;
+
+    //public Animator animator;
 
     void Start()
     {
@@ -40,18 +45,22 @@ public class EnemyMovement : MonoBehaviour
             GetComponent<Rigidbody>().freezeRotation = true;
         }
         rb = GetComponent<Rigidbody>();
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        //animator = GetComponent<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         //Pobranie obiektu gracza.
-        player = GameObject.FindWithTag("Player").transform;
+        playertransform = GameObject.FindWithTag("Player").transform;
 
         //Pobranie pozycji gracza.
-        playerXYZ = new Vector3(player.position.x, enemy.position.y, player.position.z);
+        playerXYZ = new Vector3(playertransform.position.x, enemy.position.y, playertransform.position.z);
 
         //Pobranie dystansu dzielącego wroga od obiektu gracza.
-        float distance = Vector3.Distance(enemy.position, player.position);
+        float distance = Vector3.Distance(enemy.position, playertransform.position);
 
         lookAtMe = false; //Wróg nie patrzy na gracza bo jeszcze nie wiadomo czy jest w zasięgu wzroku.
 
@@ -65,10 +74,22 @@ public class EnemyMovement : MonoBehaviour
             //Trzeci parametr określa z jaką prędkością animacja/ruch ma zostać wykonany.
             enemy.position = Vector3.MoveTowards(enemy.position, playerXYZ, movementSpeed * Time.deltaTime);
 
+            //animator.SetFloat("speed", 5f);
+
+            //może znów wywołać metodę Attack
+            isAttacking = false;
+
         }
         else if (distance <= distanceToStop)
         { //Jeżeli wróg jest tuż przy graczu to niech ciągle na niego patrzy mimo że nie musi się już poruszać.
             lookAtMe = true;
+
+            //atakuje gracza, jeżeli jeszcze go nie atakuje-gdyby nie warunek isAttacking, InvokeRepeating byłoby wywoływane co klatkę
+            if (isAttacking == false)
+            {
+                InvokeRepeating("Attack", 0f, 5f);
+                isAttacking = true;
+            }
         }
 
         LookAtMe();
@@ -97,6 +118,11 @@ public class EnemyMovement : MonoBehaviour
             transform.LookAt(playerXYZ);
         }
 
+    }
+
+    void Attack()
+    {
+        player.health.CurrentVal -= 2;
     }
 
     void OnTriggerEnter(Collider coll)
