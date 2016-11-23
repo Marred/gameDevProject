@@ -5,7 +5,7 @@ public class EnemyHP : MonoBehaviour
 {
     [SerializeField]private GameObject dmgtext;
     [SerializeField]private float enemyHealth = 15f;
-    private Vector3 polozenie = new Vector3(0, 0, 0);
+    private Vector3 polozenie = new Vector3(0, 0, 0); // w celu korekty polozenia tekstu mozna zmieniac
     private Transform enemyTransform;
   
     void Start()
@@ -20,7 +20,7 @@ public class EnemyHP : MonoBehaviour
     void Damage(float dmg)
     {
         GameObject canvas = GameObject.Find("EnemyCanvas");
-        GameObject ObjTextDmg = Instantiate(dmgtext, enemyTransform.position + polozenie, enemyTransform.rotation) as GameObject;
+        GameObject ObjTextDmg = Instantiate(dmgtext, enemyTransform.position + polozenie, Quaternion.identity) as GameObject;
      
         //przyporządkowanie naszego tekstu dla pobranego canvasa
         ObjTextDmg.transform.SetParent(canvas.transform); 
