@@ -226,7 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
   oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
-  healthOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
+  healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
 --- !u!114 &114000012730842470
 MonoBehaviour:
   m_ObjectHideFlags: 1
