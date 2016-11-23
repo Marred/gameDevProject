@@ -3,8 +3,7 @@ using System.Collections;
 
 public class EnemyDrop : MonoBehaviour {
 
-    //[SerializeField]private Transform spawnPlace;
-    //[SerializeField]private int dropChance;
+    private Vector3 shift = new Vector3(0.5f, 0, 0);
 
     [SerializeField]GameObject expOrb;
     [SerializeField]GameObject oxygenOrb;
@@ -20,13 +19,13 @@ public class EnemyDrop : MonoBehaviour {
         }
         else if(randomChance<85)
         {
-            Instantiate(expOrb, transform.position, Quaternion.identity);
-            Instantiate(oxygenOrb, transform.position, Quaternion.identity);
+            Instantiate(expOrb, transform.position+shift, Quaternion.identity);
+            Instantiate(oxygenOrb, transform.position-shift, Quaternion.identity);
         }
         else
         {
-            Instantiate(expOrb, transform.position, Quaternion.identity);
-            Instantiate(healthOrb, transform.position, Quaternion.identity);
+            Instantiate(expOrb, transform.position+shift, Quaternion.identity);
+            Instantiate(healthOrb, transform.position-shift, Quaternion.identity);
         }
     }
 

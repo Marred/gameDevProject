@@ -72,6 +72,9 @@ public class EnemyMovement : MonoBehaviour
         }
 
         LookAtMe();
+
+        //trzyma przeciwnika w osi Z
+        enemy.position = new Vector3(enemy.position.x, enemy.position.y, 0);
     }
 
     //Wróg może nie mieć potrzeby sie pruszać bo jest blisko gracza ale niech się obraca w jego stronę.
