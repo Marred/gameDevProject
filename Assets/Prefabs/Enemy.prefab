@@ -44,6 +44,7 @@ GameObject:
   - 65: {fileID: 65000010570401914}
   - 114: {fileID: 114000012534043390}
   - 114: {fileID: 114000012275420382}
+  - 114: {fileID: 114000011901363116}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -177,6 +178,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0000001, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 1}
+--- !u!114 &114000011901363116
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012035261260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4115940c8bf3d244082427d6a6878e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
+  oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
+  healthOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
 --- !u!114 &114000012275420382
 MonoBehaviour:
   m_ObjectHideFlags: 1

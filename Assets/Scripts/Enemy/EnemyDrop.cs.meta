@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4115940c8bf3d244082427d6a6878e29
+timeCreated: 1479900106
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
+  - oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9,
+      type: 2}
+  - healthOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
