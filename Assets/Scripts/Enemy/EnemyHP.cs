@@ -20,10 +20,10 @@ public class EnemyHP : MonoBehaviour
     void Damage(float dmg)
     {
         GameObject canvas = GameObject.Find("EnemyCanvas");
-        GameObject ObjTextDmg = Instantiate(dmgtext, enemyTransform.position + polozenie, Quaternion.identity) as GameObject;
+        GameObject ObjTextDmg = Instantiate(dmgtext, enemyTransform.position + polozenie, Quaternion.identity, canvas.transform) as GameObject;
      
         //przyporządkowanie naszego tekstu dla pobranego canvasa
-        ObjTextDmg.transform.SetParent(canvas.transform); 
+        //ObjTextDmg.transform.SetParent(canvas.transform); 
 
        //wyslanie wiadomości do naszego obiektu(tekst) z nazwa funkcji do wykonania oraz wartoscia obrazen
         ObjTextDmg.SendMessage("SetTextDmg", dmg.ToString());
