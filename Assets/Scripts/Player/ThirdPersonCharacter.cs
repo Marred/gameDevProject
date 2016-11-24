@@ -87,6 +87,9 @@ public class ThirdPersonCharacter : MonoBehaviour
 	void HandleRotation()
 	{
 		Vector3 directionToLook = lookPos - transform.position;
+		if (directionToLook == Vector3.zero)
+			return;
+			
 		directionToLook.y = 0;
 		Quaternion targetRotation = Quaternion.LookRotation (directionToLook);
 
