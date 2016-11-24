@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Obstacle
   - OxygenOrb
+  - HPOrb
   layers:
   - Default
   - TransparentFX

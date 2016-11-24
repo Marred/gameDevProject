@@ -26,7 +26,7 @@ GameObject:
   - 65: {fileID: 65000013548229644}
   m_Layer: 0
   m_Name: HpOrb
-  m_TagString: ExpOrb
+  m_TagString: HPOrb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

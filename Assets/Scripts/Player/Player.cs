@@ -26,15 +26,15 @@ public class Player : MonoBehaviour {
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0; //zmienic gdyby wprowadzone save'y
 	}
-	// Use this for initialization
+	
 	void Start () {
         StartCoroutine(OxygenOut());
     }
 
-    // Update is called once per frame
+ 
     void Update()
     {
-        //Testowe odejmowanie życia
+      
 
         
 
@@ -45,7 +45,19 @@ public class Player : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(oxygenDelay);
-            oxygen.CurrentVal -= 5;
+            if (oxygen.CurrentVal>5)
+            {
+                oxygen.CurrentVal -= 5;
+            }
+            
+            if (oxygen.CurrentVal<=5)
+            {
+                oxygen.CurrentVal = 0;
+                if (oxygen.CurrentVal==0)
+                {
+                    health.CurrentVal -= 5;
+                }
+            }
         }
         
     }
@@ -61,10 +73,29 @@ public class Player : MonoBehaviour {
 		}
         else if(other.gameObject.CompareTag("OxygenOrb"))
         {
-
-            oxygen.CurrentVal = 100f;
+            if (oxygen.CurrentVal>=61f)
+            {
+                oxygen.CurrentVal = oxygen.MaxVal;
+            }
+            else
+            {
+                oxygen.CurrentVal += 40f;
+            }
+          
             Destroy(other.gameObject);
 
+        }
+        else if(other.gameObject.CompareTag("HPOrb"))
+        {
+            if (health.CurrentVal>=81f)
+            {
+                health.CurrentVal = health.MaxVal;
+            }
+            else
+            {
+                health.CurrentVal += 20;
+            }
+            Destroy(other.gameObject);
         }
 	}
 
@@ -87,7 +118,8 @@ public class Player : MonoBehaviour {
         //inicjalizacja animacji lvlUp
         GameObject lvlUpAnim = Instantiate(lvlupAnimation, transform.position, Quaternion.identity,this.transform) as GameObject;
         GameObject lvlupAnimaText = Instantiate(lvlupAnimationText, new Vector3(transform.position.x, transform.position.y, 0) ,Quaternion.identity, myCanvas.transform) as GameObject;
-       
+        oxygen.CurrentVal = oxygen.MaxVal;
+        health.CurrentVal = health.MaxVal;
         playerLevel.CurrentVal += 1;
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0;
