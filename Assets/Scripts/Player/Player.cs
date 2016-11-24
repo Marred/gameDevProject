@@ -7,10 +7,14 @@ public class Player : MonoBehaviour {
     [SerializeField]public Stat exp;
     [SerializeField]public Stat oxygen;
     [SerializeField]public Stat playerLevel;
-    [SerializeField]private GameObject lvlupAnimation;
+    //animacje lvlup  postać musi zawierac prefab canvas "PlayerCanv(LvlUp)"
+    [SerializeField]private GameObject lvlupAnimation; //przypisac prefab o tej samej nazwie
+    [SerializeField]private GameObject lvlupAnimationText; // przypisac prefab "LvlUpText"
+    [SerializeField]private Canvas myCanvas; //PlayerCanv(LvlUp) -  musi być dodany do gracza!
+
     [SerializeField]private Text playerLevelText;
     [SerializeField]private float oxygenDelay = 3f;
-
+    
     void Awake() {
 		//Ustawienie wartości z inspektora
 		health.Initialize ();
@@ -32,7 +36,7 @@ public class Player : MonoBehaviour {
     {
         //Testowe odejmowanie życia
 
-      
+        
 
     }
     IEnumerator OxygenOut()
@@ -80,11 +84,10 @@ public class Player : MonoBehaviour {
 	/// </summary>
 	void LevelUp()
 	{
-
-
         //inicjalizacja animacji lvlUp
         GameObject lvlUpAnim = Instantiate(lvlupAnimation, transform.position, Quaternion.identity,this.transform) as GameObject;
-
+        GameObject lvlupAnimaText = Instantiate(lvlupAnimationText, new Vector3(transform.position.x, transform.position.y, 0) ,Quaternion.identity, myCanvas.transform) as GameObject;
+       
         playerLevel.CurrentVal += 1;
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0;
