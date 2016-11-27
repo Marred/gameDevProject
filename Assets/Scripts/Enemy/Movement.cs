@@ -41,6 +41,10 @@ public class Movement : MonoBehaviour {
 
 	void Update()
     {
+
+        //canJump = (Physics.CheckBox(direction + new Vector3(1.6f, 3f, 0), new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
+        //& !Physics.CheckBox(direction + new Vector3(0f, 3f, 0), new Vector3(1f, 1f, 0), Quaternion.Euler(0, 0, 0), groundLayer));
+        Debug.DrawLine(direction + new Vector3(-1f, 3f, 0), direction + new Vector3(1f, 3f, 0), Color.magenta);
         CheckForObstacles();
 
         //if hit ustaw targetPosition na obecną pozycję gracza
@@ -75,17 +79,34 @@ public class Movement : MonoBehaviour {
         {
             goingRight=true;
         }
-        //Sprawdza, czy gracz jest wyżej czy niżej i pozwala na skok w dół lub górę
-        if (transform.position.y >= targetPosition.y)
+        //Sprawdza pozycję gracza w osi Y i ustala, czy skoczyć/spaść tylko, jeśli stoi na ziemi
+        if (isGrounded)
         {
-            ignoreEdge = true;
-        }
-        else if(isGrounded)
-        {
-            canJump = Physics.CheckBox(direction + new Vector3(3f, 0, 0), new Vector3(0, 0, 0));
-            if(canJump)
+            //Sprawdza, czy gracz poniżej, jeśli tak ignoruje krawędzie i spada niżej
+            if ((transform.position.y - targetPosition.y) > 0.5)
             {
-                //rb.velocity = new Vector3(0, 9, 0);
+                //Debug.Log("Gracz jest poniżej" + (transform.position.y - targetPosition.y));
+                ignoreEdge = true;
+            }
+            else if ((targetPosition.y - transform.position.y) > 3)
+            {
+                //Debug.Log("Gracz jest powyżej");
+                canJump = (Physics.CheckBox(direction + new Vector3(1.6f, 3f, 0), new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
+                & !Physics.CheckBox(transform.position + new Vector3(0f, 3f, 0), new Vector3(1f, 1f, 0), Quaternion.Euler(0, 0, 0), groundLayer));
+
+                if (canJump)
+                {
+                    rb.velocity = new Vector3(0, 9f, 0);
+                }
+            }
+            else
+            {
+                //Debug.Log("Gracz jest na tym samym poziomie");
+                /*if (onEdge)
+                {
+                    rb.velocity = new Vector3(1f, 1f, 0);
+                }*/
+                ignoreEdge = true;
             }
         }
     }
