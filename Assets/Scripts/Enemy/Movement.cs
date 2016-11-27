@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour {
     public LayerMask collisionLayer;
 
     public GameObject player;
+    Rigidbody rb;
 
     public float speed;
     public float searchDistance;
@@ -35,6 +36,7 @@ public class Movement : MonoBehaviour {
         //Ustawia targetPosition na pozycję niemożliwą do osiągnięcia, pozwala zacząć pętlę GoTo jeśli targetPosition jest inne niż nullPosition i zakończyć, jeśli takie same
         nullPosition = new Vector3(0, -100f, 0);
         targetPosition = nullPosition;
+        rb = GetComponent<Rigidbody>();
     }
 
 	void Update()
@@ -83,8 +85,7 @@ public class Movement : MonoBehaviour {
             canJump = Physics.CheckBox(direction + new Vector3(3f, 0, 0), new Vector3(0, 0, 0));
             if(canJump)
             {
-                speed = 1f;
-
+                //rb.velocity = new Vector3(0, 9, 0);
             }
         }
     }
@@ -103,7 +104,6 @@ public class Movement : MonoBehaviour {
     void CheckForObstacles()
     {
         onEdge = !Physics.CheckBox(direction, new Vector3(0, 0, -0.01f), Quaternion.Euler(0, 0, 0), groundLayer);
-        Debug.Log(onEdge);
         isColliding = Physics.CheckBox(direction + new Vector3(0, 0.75f, 0), new Vector3(0, 0.7f, 0.35f), Quaternion.Euler(0, 0, 0), collisionLayer);
         if ((onEdge&&!ignoreEdge) | isColliding)
         {
