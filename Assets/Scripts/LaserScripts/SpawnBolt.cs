@@ -10,7 +10,7 @@ public class SpawnBolt : MonoBehaviour {
     [SerializeField] private Transform spawn;
     
     private float nextFire = 0.5f;
-    public float fireRate;
+    [SerializeField]private float fireRate;
  
     void Start()
     {
