@@ -44,7 +44,6 @@ public class Movement : MonoBehaviour {
 
         //canJump = (Physics.CheckBox(direction + new Vector3(1.6f, 3f, 0), new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
         //& !Physics.CheckBox(direction + new Vector3(0f, 3f, 0), new Vector3(1f, 1f, 0), Quaternion.Euler(0, 0, 0), groundLayer));
-        Debug.DrawLine(direction + new Vector3(-1f, 3f, 0), direction + new Vector3(1f, 3f, 0), Color.magenta);
         CheckForObstacles();
 
         //if hit ustaw targetPosition na obecną pozycję gracza
@@ -82,13 +81,14 @@ public class Movement : MonoBehaviour {
         //Sprawdza pozycję gracza w osi Y i ustala, czy skoczyć/spaść tylko, jeśli stoi na ziemi
         if (isGrounded)
         {
+            ignoreEdge = false;
             //Sprawdza, czy gracz poniżej, jeśli tak ignoruje krawędzie i spada niżej
             if ((transform.position.y - targetPosition.y) > 0.5)
             {
                 //Debug.Log("Gracz jest poniżej" + (transform.position.y - targetPosition.y));
                 ignoreEdge = true;
             }
-            else if ((targetPosition.y - transform.position.y) > 3)
+            else if ((targetPosition.y - transform.position.y) > 2.5)
             {
                 //Debug.Log("Gracz jest powyżej");
                 canJump = (Physics.CheckBox(direction + new Vector3(1.6f, 3f, 0), new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
