@@ -35,8 +35,11 @@ public class Player : MonoBehaviour {
     void Update()
     {
       
+        if (health.CurrentVal <= 0 && oxygen.CurrentVal == 0)
+        {
+            StopAllCoroutines();
+        }
 
-        
 
     }
     IEnumerator OxygenOut()
@@ -50,7 +53,7 @@ public class Player : MonoBehaviour {
                 oxygen.CurrentVal -= 5;
             }
             
-            if (oxygen.CurrentVal<=5)
+            else if (oxygen.CurrentVal<=5)
             {
                 oxygen.CurrentVal = 0;
                 if (oxygen.CurrentVal==0)
@@ -58,6 +61,7 @@ public class Player : MonoBehaviour {
                     health.CurrentVal -= 5;
                 }
             }
+          
         }
         
     }
