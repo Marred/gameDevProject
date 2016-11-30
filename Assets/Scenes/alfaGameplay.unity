@@ -9017,6 +9017,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011282170688, guid: dd299821bae91144380fb0da93554742,
+        type: 2}
+      propertyPath: stopDistance
+      value: 1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd299821bae91144380fb0da93554742, type: 2}
   m_IsPrefabParent: 0

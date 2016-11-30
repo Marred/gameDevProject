@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour {
 
     public float speed;
     public float searchDistance;
+    public float stopDistance;
 
     Vector3 targetPosition;
     Vector3 nullPosition;
@@ -109,13 +110,13 @@ public class Movement : MonoBehaviour {
 
                 if (canJump)
                 {
-                    Debug.Log("Skok w przód");
+                    //Debug.Log("Skok w przód");
                     rb.velocity = new Vector3(0, 9f, 0);
                 }
                 if (goingUp & (Physics.CheckBox(offsetBack, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
                 & !Physics.CheckBox(transform.position + new Vector3(0f, 3f, 0), new Vector3(1.35f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer)))
                 {
-                    Debug.Log("Obrót");
+                    //Debug.Log("Obrót");
                     goingUp = false;
                     goingRight = !goingRight;
                     SetDirection(goingRight);
@@ -124,7 +125,7 @@ public class Movement : MonoBehaviour {
             else
             {
                 goingUp = false;
-                Debug.Log("Gracz jest na tym samym poziomie");
+                //Debug.Log("Gracz jest na tym samym poziomie");
                 /*if (onEdge)
                 {
                     rb.velocity = new Vector3(1f, 1f, 0);
@@ -155,7 +156,7 @@ public class Movement : MonoBehaviour {
             if (((onEdge && !ignoreEdge) | isColliding))
             {
                 goingRight = !goingRight;
-                Debug.Log("Zawracam" + isGrounded+onEdge+isColliding);
+                //Debug.Log("Zawracam" + isGrounded+onEdge+isColliding);
             }
         }
     }
@@ -187,7 +188,11 @@ public class Movement : MonoBehaviour {
     //wykonuje ruch w kierunku direction
     void Move(Vector3 direction)
     {
-        transform.position = Vector3.MoveTowards(transform.position, direction, speed * Time.deltaTime);
+        if (((transform.position.y > targetPosition.y ? transform.position.y - targetPosition.y : targetPosition.y - transform.position.y) < 0.1) &&
+        (transform.position.x > targetPosition.x ? transform.position.x - targetPosition.x : targetPosition.x - transform.position.x) > stopDistance)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, direction, speed * Time.deltaTime);
+        }
     }
     
 }
