@@ -18,31 +18,24 @@ public class GameMenusHandler : MonoBehaviour
 		//jezeli pause otwarte, to pozwol na escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-			if (!isPaused) {
-				if (!statsMenuOpened) {
-					isPaused = true;
+			if (!pauseMenu.active) {
+				if (!statsMenu.active) {
 					openMenu (pauseMenu);
-				} else if (statsMenuOpened) {
-					statsMenuOpened = false;
+				} else if(statsMenu.active) {
 					closeMenu (statsMenu);
 				}
 			}
 			else {
-				isPaused = false;
 				closeMenu (pauseMenu);
 			}
         }
+
 		if (Input.GetKeyDown(KeyCode.B))
 		{
-			if (!isPaused){
-
-				if (!statsMenuOpened) {
-					statsMenuOpened = true;
+			if (!pauseMenu.active){
+				if (!statsMenu.active) {
 					openMenu (statsMenu);
-
-
 				} else {
-					statsMenuOpened = false;
 					closeMenu (statsMenu);
 				}
 			}

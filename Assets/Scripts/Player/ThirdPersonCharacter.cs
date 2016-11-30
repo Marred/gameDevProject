@@ -21,7 +21,7 @@ public class ThirdPersonCharacter : MonoBehaviour
 	bool m_IsGrounded;
 	float m_OrigGroundCheckDistance;
 	const float k_Half = 0.5f;
-	float m_TurnAmount;
+
 	float m_ForwardAmount;
 	Vector3 m_GroundNormal;
 	float m_CapsuleHeight;
@@ -136,10 +136,9 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 		CheckGroundStatus ();
 		move = Vector3.ProjectOnPlane (move, m_GroundNormal);
-		m_TurnAmount = Mathf.Atan2 (move.x, move.z);
+
 		m_ForwardAmount = move.z;
 		float jumpDirection = move.x;
-		//ApplyExtraTurnRotation ();
 
 		// control and velocity handling is different when grounded and airborne:
 		if (m_IsGrounded) {
@@ -226,16 +225,13 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 	void HandleAirborneMovement (float jumpDirection)
 	{
+		Vector3 airMove = new Vector3 (Input.GetAxis ("Horizontal") * 6f, m_Rigidbody.velocity.y, 0);
+		m_Rigidbody.velocity = Vector3.Lerp(m_Rigidbody.velocity, airMove, Time.deltaTime*2f);
+
+
+		// apply extra gravity from multiplier:
 		Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
-		//Debug.Log (extraGravityForce.y);
-		extraGravityForce.x = jumpDirection / Time.deltaTime;
-		//Debug.Log (Physics.);
-		//Debug.Log (extraGravityForce);
-		//Vector3 newVelocity = m_Rigidbody.velocity;
-		//newVelocity.x = m_Animator.deltaPosition.x;
-		//Debug.Log (newVelocity);
-		//m_Rigidbody.velocity = newVelocity;
-		m_Rigidbody.AddForce (extraGravityForce);
+		m_Rigidbody.AddForce(extraGravityForce);
 
 		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
 	}
@@ -249,29 +245,19 @@ public class ThirdPersonCharacter : MonoBehaviour
 			m_Rigidbody.velocity = new Vector3 (m_Rigidbody.velocity.x, m_JumpPower, 0); //EDYTOWANE
 			//m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z); 
 			m_IsGrounded = false;
-			m_Animator.applyRootMotion = false;
+			//m_Animator.applyRootMotion = false;
 			m_GroundCheckDistance = 0.1f;
 		}
 	}
 
 	public void OnAnimatorMove ()
 	{
-		//Debug.Log (m_Animator.deltaPosition);
 		// we implement this function to override the default root motion.
 		// this allows us to modify the positional speed before it's applied.
-		if ( Time.deltaTime > 0) {
+		if ( m_IsGrounded && Time.deltaTime > 0) {
 			
 			float moveSpeed = m_MoveSpeedMultiplier;
-
-			//naprawiony skok
-			Vector3 asdAsd = m_Animator.deltaPosition;
-
-			if (!m_IsGrounded)
-				asdAsd.x = Input.GetAxis ("Horizontal")/10f;
-				
-			Vector3 v = (asdAsd * moveSpeed) / Time.deltaTime;
-			
-			//Debug.Log (m_Animator.deltaPosition);
+			Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
 			// we preserve the existing y part of the current velocity.
 			v.y = m_Rigidbody.velocity.y;
 
@@ -292,11 +278,11 @@ public class ThirdPersonCharacter : MonoBehaviour
 			//Debug.DrawRay (transform.position + (Vector3.up * 0.1f), Vector3.down, Color.green);
 			m_GroundNormal = hitInfo.normal;
 			m_IsGrounded = true;
-			m_Animator.applyRootMotion = true;
+			//m_Animator.applyRootMotion = true;
 		} else {
 			m_IsGrounded = false;
 			m_GroundNormal = Vector3.up;
-			m_Animator.applyRootMotion = false;
+			//m_Animator.applyRootMotion = false;
 		}
 	}
 }
