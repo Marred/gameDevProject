@@ -188,8 +188,7 @@ public class Movement : MonoBehaviour {
     //wykonuje ruch w kierunku direction
     void Move(Vector3 direction)
     {
-        if (((transform.position.y > targetPosition.y ? transform.position.y - targetPosition.y : targetPosition.y - transform.position.y) < 0.1) &&
-        (transform.position.x > targetPosition.x ? transform.position.x - targetPosition.x : targetPosition.x - transform.position.x) > stopDistance)
+        if (Vector3.Distance(transform.position, targetPosition) > stopDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, direction, speed * Time.deltaTime);
         }
