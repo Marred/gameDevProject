@@ -36,14 +36,6 @@ public class SpawnBolt : MonoBehaviour {
             if (level == 1)
             {
                 bolt = bolt1;
-<<<<<<< origin/master
-<<<<<<< HEAD
-                Debug.Log("poziom 1 laseru");
-=======
->>>>>>> fa66925e0b947a4abe92554b084825c7322a41fe
-=======
-
->>>>>>> local
             }
             else if(level==2)
             {
