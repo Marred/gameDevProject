@@ -18,10 +18,10 @@ public class GameMenusHandler : MonoBehaviour
 		//jezeli pause otwarte, to pozwol na escape
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-			if (!pauseMenu.active) {
-				if (!statsMenu.active) {
+			if (!pauseMenu.activeSelf) {
+				if (!statsMenu.activeSelf) {
 					openMenu (pauseMenu);
-				} else if(statsMenu.active) {
+				} else if(statsMenu.activeSelf) {
 					closeMenu (statsMenu);
 				}
 			}
@@ -32,8 +32,8 @@ public class GameMenusHandler : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.B))
 		{
-			if (!pauseMenu.active){
-				if (!statsMenu.active) {
+			if (!pauseMenu.activeSelf){
+				if (!statsMenu.activeSelf) {
 					openMenu (statsMenu);
 				} else {
 					closeMenu (statsMenu);
