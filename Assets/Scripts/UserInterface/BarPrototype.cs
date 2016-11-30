@@ -54,6 +54,7 @@ public class BarPrototype : MonoBehaviour
 	private void HandleBar()
 	{
 		float curSize = 0;
+		float newSize;
 		// Zwraca typ elementu. Ponizej uzylem tego do odroznienia paskow (Sliced) i okregow (Filled)
 		string typeOfElem = content.type.ToString ();
 
@@ -64,7 +65,11 @@ public class BarPrototype : MonoBehaviour
 		if (fillAmount != curSize)
 		{
 			//Lerp dzieli ułamkami odleglosc miedzy dwoma wartosciami
-			float newSize = Mathf.Lerp (curSize, fillAmount, Time.deltaTime * lerpSpeed);
+			//update:28.11.16 - paski w menu sie nie aktualizuja przez uzycie time.deltatime z zerowym timescale. NAPRAWIONO
+			if (Time.timeScale>0)
+				newSize = Mathf.Lerp (curSize, fillAmount, Time.deltaTime * lerpSpeed);
+			else
+				newSize = fillAmount;
 
 			if (typeOfElem == "Sliced")
 				content.rectTransform.localScale = new Vector3 (newSize, 1, 1); //Trzeba uzyc wektora, by zmienic skale

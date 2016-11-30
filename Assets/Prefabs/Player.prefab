@@ -1473,14 +1473,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7a80d520cacc042b5fe14f373d8173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MovingTurnSpeed: 360
-  m_StationaryTurnSpeed: 180
   m_JumpPower: 6
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 0.2
   m_MoveSpeedMultiplier: 1
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.3
+  headTarget: {fileID: 0}
+  shoulderTrans: {fileID: 0}
+  rightShoulder: {fileID: 0}
+  lookPos: {x: 0, y: 0, z: 0}
+  hittingPlayer: 0
+  aimAngle: 0
 --- !u!114 &114000013814212288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1508,7 +1512,36 @@ MonoBehaviour:
     bar: {fileID: 0}
     maxVal: 0
     currentVal: 0
+  healthSkill:
+    bar: {fileID: 0}
+    maxVal: 10
+    currentVal: 0
+  oxygenSkill:
+    bar: {fileID: 0}
+    maxVal: 10
+    currentVal: 0
+  speedSkill:
+    bar: {fileID: 0}
+    maxVal: 10
+    currentVal: 0
+  strengthSkill:
+    bar: {fileID: 0}
+    maxVal: 10
+    currentVal: 0
+  dropSkill:
+    bar: {fileID: 0}
+    maxVal: 5
+    currentVal: 0
+  skillPoints: 0
+  playedTime: 0
+  expOrbsPicked: 0
+  enemiesKilled: 0
+  deaths: 0
+  lvlupAnimation: {fileID: 0}
+  lvlupAnimationText: {fileID: 0}
+  myCanvas: {fileID: 0}
   playerLevelText: {fileID: 0}
+  oxygenDelay: 3
 --- !u!114 &114000014246604418
 MonoBehaviour:
   m_ObjectHideFlags: 1

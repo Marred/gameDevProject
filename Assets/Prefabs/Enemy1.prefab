@@ -63,7 +63,6 @@ GameObject:
   - 65: {fileID: 65000010672513084}
   - 114: {fileID: 114000012958914884}
   - 114: {fileID: 114000012730842470}
-  - 114: {fileID: 114000012066532832}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Enemy
@@ -225,20 +224,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114000012066532832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013173238858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4115940c8bf3d244082427d6a6878e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
-  oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
-  healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
 --- !u!114 &114000012730842470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -251,7 +236,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgtext: {fileID: 1000011754910636, guid: cbf5e43fc7ff32147b9445c4f1b82147, type: 2}
-  enemyHealth: 10
+  enemyHealth:
+    bar: {fileID: 0}
+    maxVal: 0
+    currentVal: 0
+  expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
+  oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
+  healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
 --- !u!114 &114000012958914884
 MonoBehaviour:
   m_ObjectHideFlags: 1

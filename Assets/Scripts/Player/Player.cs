@@ -3,19 +3,43 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
-    [SerializeField]public Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
-    [SerializeField]public Stat exp;
-    [SerializeField]public Stat oxygen;
-    [SerializeField]public Stat playerLevel;
+	//  PLAYER VARIABLES
+	[SerializeField]public Stat health; //Aktualna wartość: health.CurrentVal. Maksymalna wartość: health.MaxVal
+	[SerializeField]public Stat exp;
+	[SerializeField]public Stat oxygen;
+	[SerializeField]public Stat playerLevel;
+
+	//  SKILLPOINTS
+	[SerializeField]public Stat healthSkill;
+	[SerializeField]public Stat oxygenSkill;
+	[SerializeField]public Stat speedSkill;
+	[SerializeField]public Stat strengthSkill;
+	[SerializeField]public Stat dropSkill;
+
+	//  STATISTICS
+	public int skillPoints;
+	public float playedTime;
+	public int expOrbsPicked;
+	public int enemiesKilled;
+	public int deaths;
+
     //animacje lvlup  postać musi zawierac prefab canvas "PlayerCanv(LvlUp)"
     [SerializeField]private GameObject lvlupAnimation; //przypisac prefab o tej samej nazwie
     [SerializeField]private GameObject lvlupAnimationText; // przypisac prefab "LvlUpText"
     [SerializeField]private Canvas myCanvas; //PlayerCanv(LvlUp) -  musi być dodany do gracza!
 
     [SerializeField]private Text playerLevelText;
-    [SerializeField]private float oxygenDelay = 3f;
+
+	//  OXYGEN SETTING
+	[SerializeField]private float oxygenDelay = 3f;
     
     void Awake() {
+		healthSkill.Initialize ();
+		oxygenSkill.Initialize ();
+		speedSkill.Initialize ();
+		strengthSkill.Initialize ();
+		dropSkill.Initialize ();
+
 		//Ustawienie wartości z inspektora
 		health.Initialize ();
 		exp.Initialize ();
@@ -34,7 +58,7 @@ public class Player : MonoBehaviour {
  
     void Update()
     {
-      
+		playedTime += Time.deltaTime;
         if (health.CurrentVal <= 0 && oxygen.CurrentVal == 0)
         {
             StopAllCoroutines();
@@ -65,6 +89,12 @@ public class Player : MonoBehaviour {
         }
         
     }
+
+	public void enemyDeath( GameObject enemy )
+	{
+		//Debug.Log ("called enemydeath in enemyplayer");
+		enemiesKilled++;
+	}
 
     void OnTriggerEnter(Collider other) // funkcja do wykrywania wejscia na triggera
 	{
@@ -119,6 +149,8 @@ public class Player : MonoBehaviour {
 	/// </summary>
 	void LevelUp()
 	{
+		skillPoints++;
+
         //inicjalizacja animacji lvlUp
         GameObject lvlUpAnim = Instantiate(lvlupAnimation, transform.position, Quaternion.identity,this.transform) as GameObject;
         GameObject lvlupAnimaText = Instantiate(lvlupAnimationText, new Vector3(transform.position.x, transform.position.y, 0) ,Quaternion.identity, myCanvas.transform) as GameObject;

@@ -44,7 +44,6 @@ GameObject:
   - 65: {fileID: 65000010921282168}
   - 114: {fileID: 114000012750758460}
   - 114: {fileID: 114000010599204184}
-  - 114: {fileID: 114000012787512544}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -190,7 +189,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmgtext: {fileID: 1000011754910636, guid: cbf5e43fc7ff32147b9445c4f1b82147, type: 2}
-  enemyHealth: 10
+  enemyHealth:
+    bar: {fileID: 0}
+    maxVal: 0
+    currentVal: 0
+  expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
+  oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
+  healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
 --- !u!114 &114000012750758460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,20 +215,6 @@ MonoBehaviour:
   jumpSpeed: 5
   isTriggered: 0
   isAttacking: 0
---- !u!114 &114000012787512544
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014294579916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4115940c8bf3d244082427d6a6878e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
-  oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
-  healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
 --- !u!136 &136000011429600008
 CapsuleCollider:
   m_ObjectHideFlags: 1
