@@ -51,7 +51,9 @@ public class ThirdPersonCharacter : MonoBehaviour
 		m_CapsuleHeight = m_Capsule.height;
 		m_CapsuleCenter = m_Capsule.center;
 
-		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+		m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | 
+			RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionZ;
+		
 		m_OrigGroundCheckDistance = m_GroundCheckDistance;
 
 		rsp = new GameObject ();
@@ -86,11 +88,10 @@ public class ThirdPersonCharacter : MonoBehaviour
 	}
 	void HandleRotation()
 	{
-		Vector3 directionToLook = lookPos - transform.position;
-		if (directionToLook == Vector3.zero)
-			return;
-			
+		Vector3 directionToLook = lookPos - transform.position;	
 		directionToLook.y = 0;
+
+		if (directionToLook == Vector3.zero) return;
 		Quaternion targetRotation = Quaternion.LookRotation (directionToLook);
 
 		//	Debug.Log (lookPos.x + " " + transform.position.x);
@@ -226,19 +227,16 @@ public class ThirdPersonCharacter : MonoBehaviour
 	void HandleAirborneMovement (float jumpDirection)
 	{
 		Vector3 airMove = new Vector3 (Input.GetAxis ("Horizontal") * 6f, m_Rigidbody.velocity.y, 0);
-		m_Rigidbody.velocity = Vector3.Lerp(m_Rigidbody.velocity, airMove, Time.deltaTime*2f);
-
-
-		// apply extra gravity from multiplier:
+		m_Rigidbody.velocity = Vector3.Lerp (m_Rigidbody.velocity, airMove, Time.deltaTime);
 		Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
-		m_Rigidbody.AddForce(extraGravityForce);
+		m_Rigidbody.AddForce (extraGravityForce);
 
 		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
 	}
 
-
 	void HandleGroundedMovement (bool crouch, bool jump)
 	{
+
 		// check whether conditions are right to allow a jump:
 		if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo (0).IsName ("Grounded")) {
 			// jump!
@@ -255,8 +253,6 @@ public class ThirdPersonCharacter : MonoBehaviour
 		// we implement this function to override the default root motion.
 		// this allows us to modify the positional speed before it's applied.
 		if ( m_IsGrounded && Time.deltaTime > 0) {
-			
-			float moveSpeed = m_MoveSpeedMultiplier;
 			Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
 			// we preserve the existing y part of the current velocity.
 			v.y = m_Rigidbody.velocity.y;
@@ -275,8 +271,10 @@ public class ThirdPersonCharacter : MonoBehaviour
 		// it is also good to note that the transform position in the sample assets is at the base of the character
 		Vector3 p1 = transform.position + m_Capsule.center;
 		if (Physics.SphereCast (p1 + (Vector3.up * 0.1f), m_Capsule.height / 2, Vector3.down, out hitInfo, m_GroundCheckDistance)) {
+
 			//Debug.DrawRay (transform.position + (Vector3.up * 0.1f), Vector3.down, Color.green);
 			m_GroundNormal = hitInfo.normal;
+
 			m_IsGrounded = true;
 			//m_Animator.applyRootMotion = true;
 		} else {

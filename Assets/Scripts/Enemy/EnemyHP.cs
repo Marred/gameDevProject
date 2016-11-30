@@ -68,20 +68,24 @@ public class EnemyHP : MonoBehaviour
 		}
 	}
 
+	// Wywoływane przez delegat Death
 	void DropItems( GameObject enemy ){
-		//Debug.Log ("called enemydeath in enemyhp");
 		int randomChance = Random.Range(0, 101);
+		randomChance -= (int)player.dropSkill.CurrentVal * 5;
 
-		if(randomChance<70)
+		// 50% szans
+		if(randomChance<50)
 		{
 			Instantiate(expOrb, transform.position, Quaternion.identity);
 		}
-		else if(randomChance<85)
+		// 35% szans
+		else if(randomChance<35)
 		{
 			Instantiate(expOrb, transform.position+shift, Quaternion.identity);
 			Instantiate(oxygenOrb, transform.position-shift, Quaternion.identity);
 		}
-		else
+		// 25% szans
+		else if(randomChance<25)
 		{
 			Instantiate(expOrb, transform.position+shift, Quaternion.identity);
 			Instantiate(healthOrb, transform.position-shift, Quaternion.identity);

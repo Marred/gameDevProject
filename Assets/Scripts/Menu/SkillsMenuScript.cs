@@ -14,10 +14,12 @@ public class SkillsMenuScript : MonoBehaviour {
 	private skillPoint strength	 = new skillPoint();
 	private skillPoint drop 	 = new skillPoint();
 
+	// Dynamiczne pobranie AudioSource (jest też tworzone dynamicznie, więc nie można bezposrednio przypisać
 	private AudioSource addSkillSndSource { get { return GetComponent<AudioSource> (); } }
+	// Klip audio odgrywany podczas kliknięcia przycisku PLUS
 	[SerializeField] private AudioClip addSkillSnd;
 
-
+	// Tablica klas umiejętności
 	private skillPoint[] skillPoints;
 
 	private Text skillPointsText;
