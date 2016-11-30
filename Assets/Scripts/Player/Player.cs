@@ -8,16 +8,17 @@ public class Player : MonoBehaviour {
 	[SerializeField]public Stat exp;
 	[SerializeField]public Stat oxygen;
 	[SerializeField]public Stat playerLevel;
+    [SerializeField]public Stat laserUpgrade;
 
-	//  SKILLPOINTS
-	[SerializeField]public Stat healthSkill;
+    //  SKILLPOINTS
+    [SerializeField]public Stat healthSkill;
 	[SerializeField]public Stat oxygenSkill;
 	[SerializeField]public Stat speedSkill;
 	[SerializeField]public Stat strengthSkill;
 	[SerializeField]public Stat dropSkill;
 
-	//  STATISTICS
-	public int skillPoints;
+    //  STATISTICS
+    public int skillPoints;
 	public float playedTime;
 	public int expOrbsPicked;
 	public int enemiesKilled;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour {
 		speedSkill.Initialize ();
 		strengthSkill.Initialize ();
 		dropSkill.Initialize ();
+        laserUpgrade.Initialize();
 
 		//Ustawienie wartości z inspektora
 		health.Initialize ();
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour {
 		//Wstępnie. System doświadczenia. Dla każdego levela ilość wymaganego doświadczenia wzrasta 5-krotnie
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0; //zmienic gdyby wprowadzone save'y
+        
 	}
 	
 	void Start () {
@@ -131,7 +134,21 @@ public class Player : MonoBehaviour {
             }
             Destroy(other.gameObject);
         }
-	}
+        else if (other.gameObject.CompareTag("LaserUpgrade"))
+        {
+            if (laserUpgrade.CurrentVal >= 4)
+            {
+                Debug.Log("Poziom laseru max");
+
+            }
+            else
+            {
+                laserUpgrade.CurrentVal++;
+            }
+
+            Destroy(other.gameObject);
+        }
+    }
 
 	/// <summary>
 	/// Dodaje doświadczenie.

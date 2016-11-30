@@ -25,7 +25,7 @@ GameObject:
   - 65: {fileID: 65000013429246934}
   - 114: {fileID: 114000011869979746}
   m_Layer: 8
-  m_Name: LaserBolt Enemy
+  m_Name: EnemyLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
