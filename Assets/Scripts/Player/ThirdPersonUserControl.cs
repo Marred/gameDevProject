@@ -19,9 +19,7 @@ public class ThirdPersonUserControl : MonoBehaviour
 	private void Update ()
 	{
 		//Ten if został użyty w Update, a nie w FixedUpdate, ponieważ spacja naciskana jest tylko raz, więc musi być wyłapywana przez każdą klatkę.
-		if (!m_Jump) {
-			m_Jump = Input.GetButtonDown ("Jump");
-		}
+		m_Jump = Input.GetButtonDown ("Jump");
 	}
 
 

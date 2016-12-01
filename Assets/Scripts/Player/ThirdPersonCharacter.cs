@@ -223,17 +223,29 @@ public class ThirdPersonCharacter : MonoBehaviour
 		}
 	}
 
-
+	private bool collided = false;
 	void HandleAirborneMovement (float jumpDirection)
 	{
+
 		Vector3 airMove = new Vector3 (Input.GetAxis ("Horizontal") * 6f, m_Rigidbody.velocity.y, 0);
-		m_Rigidbody.velocity = Vector3.Lerp (m_Rigidbody.velocity, airMove, Time.deltaTime);
-		Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
-		m_Rigidbody.AddForce (extraGravityForce);
+		//if (!collided && Input.GetAxis ("Horizontal")*m_Rigidbody.velocity.y>0)
+		if(!collided)//naprawic odbijanie sie od sciany w druga strone
+		m_Rigidbody.velocity = Vector3.Lerp (m_Rigidbody.velocity, airMove, Time.deltaTime*2f);
+
+		if(!collided){
+			Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+			m_Rigidbody.AddForce (extraGravityForce);
+		}
 
 		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
 	}
-
+	void OnCollisionEnter(){
+		if( m_Rigidbody.velocity.y>0)
+		collided = true;
+	}
+	void OnCollisionExit(){
+		collided = false;
+	}
 	void HandleGroundedMovement (bool crouch, bool jump)
 	{
 
