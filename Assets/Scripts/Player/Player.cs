@@ -33,6 +33,8 @@ public class Player : MonoBehaviour {
 
 	//  OXYGEN SETTING
 	[SerializeField]private float oxygenDelay = 3f;
+
+    private bool isCollide = false;
     
     void Awake() {
 		healthSkill.Initialize ();
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour {
 		//Wstępnie. System doświadczenia. Dla każdego levela ilość wymaganego doświadczenia wzrasta 5-krotnie
 		exp.MaxVal = playerLevel.CurrentVal * 5;
 		exp.CurrentVal = 0; //zmienic gdyby wprowadzone save'y
+
         
 	}
 	
@@ -61,6 +64,8 @@ public class Player : MonoBehaviour {
  
     void Update()
     {
+        isCollide = false;
+
 		playedTime += Time.deltaTime;
         if (health.CurrentVal <= 0 && oxygen.CurrentVal == 0)
         {
@@ -99,13 +104,15 @@ public class Player : MonoBehaviour {
 		enemiesKilled++;
 	}
 
-    void OnTriggerEnter(Collider other) // funkcja do wykrywania wejscia na triggera
+   void OnTriggerEnter(Collider other) // funkcja do wykrywania wejscia na triggera
 	{
-		if (other.gameObject.CompareTag("ExpOrb"))  //jeśli napotkany trigger ma tag "ExpOrb"
+        if (isCollide) return;
+        isCollide = true;
+        if (other.gameObject.CompareTag("ExpOrb"))  //jeśli napotkany trigger ma tag "ExpOrb"
 		{
 			Destroy(other.gameObject);
-			//niszczymy objekt który napotkamy
-
+            //niszczymy objekt który napotkamy
+            
 			ExpUp();
 		}
         else if(other.gameObject.CompareTag("OxygenOrb"))
@@ -136,17 +143,21 @@ public class Player : MonoBehaviour {
         }
         else if (other.gameObject.CompareTag("LaserUpgrade"))
         {
-            if (laserUpgrade.CurrentVal >= 4)
+            if (laserUpgrade.CurrentVal <= laserUpgrade.MaxVal)
             {
-                Debug.Log("Poziom laseru max");
-
+                laserUpgrade.CurrentVal++;
+                Debug.Log(laserUpgrade.CurrentVal);
+                
+               
             }
             else
             {
-                laserUpgrade.CurrentVal++;
+                Debug.Log("Poziom laseru max");
+               
             }
-
+           
             Destroy(other.gameObject);
+
         }
     }
 

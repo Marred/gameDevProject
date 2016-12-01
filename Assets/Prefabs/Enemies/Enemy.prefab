@@ -42,8 +42,8 @@ GameObject:
   - 23: {fileID: 23000010957958704}
   - 54: {fileID: 54000013075288820}
   - 65: {fileID: 65000010921282168}
-  - 114: {fileID: 114000012750758460}
   - 114: {fileID: 114000010599204184}
+  - 114: {fileID: 114000012299985476}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -196,7 +196,7 @@ MonoBehaviour:
   expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
   oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
   healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
---- !u!114 &114000012750758460
+--- !u!114 &114000012299985476
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -204,17 +204,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000014294579916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 408125595437e6d4783477fec4959a7d, type: 3}
+  m_Script: {fileID: 11500000, guid: ae1a847d8154603499185527aee85123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 6
-  smoothRotation: 1
-  movementSpeed: 5
-  rangeOfVision: 100
-  distanceToStop: 2
-  jumpSpeed: 5
-  isTriggered: 0
-  isAttacking: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 311
+  player: {fileID: 0}
+  speed: 0
+  searchDistance: 0
+  stopDistance: 0
+  isColliding: 0
+  onEdge: 0
+  isGrounded: 0
+  patrolDistance: 0
 --- !u!136 &136000011429600008
 CapsuleCollider:
   m_ObjectHideFlags: 1
