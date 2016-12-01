@@ -14,7 +14,7 @@ public class EnemyHP : MonoBehaviour
 	[SerializeField]private GameObject dmgtext;
 	[SerializeField]private Stat enemyHealth; //edited
 
-	private Vector3 polozenie = new Vector3(0, 0, 0); // w celu korekty polozenia tekstu mozna zmieniac
+	private Vector3 polozenie = new Vector3(0, 0, -1); // w celu korekty polozenia tekstu mozna zmieniac
 
 	// DROP
 	private Vector3 shift = new Vector3(0.5f, 0, 0);
