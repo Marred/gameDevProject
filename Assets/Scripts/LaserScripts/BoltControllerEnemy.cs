@@ -10,13 +10,13 @@ public class BoltControllerEnemy : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]private int fireMin; //minimalne DMG
     [SerializeField]private int fireMax; //maksymalne DMG
+    
     private Player player;
     void Start()
-    {
+    { 
         rb = GetComponent<Rigidbody>();
-        /*   poruszanie w osi Z czyli do przodu gdy jest .forward ale po korekcie
-             obrotu musimy użyć przemieszczanie na ekranie w prawo   */
-        rb.velocity = transform.right * speed;
+        
+        rb.velocity = transform.forward * speed; 
         Destroy(this.gameObject, 5);
     }
     void OnTriggerEnter(Collider other)
