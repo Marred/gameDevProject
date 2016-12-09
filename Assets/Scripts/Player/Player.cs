@@ -59,6 +59,9 @@ public class Player : MonoBehaviour {
 	
 	void Start () {
         StartCoroutine(OxygenOut());
+        exp.Initialize();
+        oxygen.Initialize();
+        playerLevel.Initialize();
     }
 
  
@@ -189,7 +192,6 @@ public class Player : MonoBehaviour {
 		exp.CurrentVal = 0;
 
 		playerLevelText.text = playerLevel.CurrentVal.ToString() + " lvl";
-        //strength += playerLevel;
-        //stamina += playerLevel;
+       
     }
 }

@@ -56,6 +56,17 @@ public class GameSave : MonoBehaviour
         data.oxygen = player.oxygen.CurrentVal;
         data.upgradeLvl = player.laserUpgrade.CurrentVal;
         data.playerLevel = player.playerLevel.CurrentVal;
+        data.experienceMaxVal = player.exp.MaxVal;//
+        data.healthSkill = player.healthSkill.CurrentVal;
+        data.oxygenSkill = player.oxygenSkill.CurrentVal;
+        data.speedSkill = player.speedSkill.CurrentVal;
+        data.strengthSkill = player.strengthSkill.CurrentVal;
+        data.dropSkill = player.dropSkill.CurrentVal;
+        data.skillPoints = player.skillPoints;
+        data.playedTime = player.playedTime;
+        data.expOrbsPicked = player.expOrbsPicked;
+        data.enemiesKilled = player.enemiesKilled;
+        data.deaths = player.deaths;
     bf.Serialize(file, data);
         file.Close();
     }
@@ -74,6 +85,18 @@ public class GameSave : MonoBehaviour
             player.playerLevel.CurrentVal = data.playerLevel;
             player.oxygen.CurrentVal = data.oxygen;
             player.laserUpgrade.CurrentVal = data.upgradeLvl;
+            player.exp.MaxVal = data.experienceMaxVal;
+            //
+            player.healthSkill.CurrentVal = data.healthSkill;
+            player.oxygenSkill.CurrentVal = data.oxygenSkill;
+            player.speedSkill.CurrentVal = data.speedSkill;
+            player.strengthSkill.CurrentVal = data.strengthSkill;
+            player.dropSkill.CurrentVal = data.dropSkill;
+            player.skillPoints = data.skillPoints;
+            player.playedTime = data.playedTime;
+            player.expOrbsPicked = data.expOrbsPicked;
+            player.enemiesKilled = data.enemiesKilled;
+            player.deaths = data.deaths;
         }
     }
 
@@ -88,6 +111,17 @@ public class GameSave : MonoBehaviour
         public float experience;
         public float oxygen;
         public float upgradeLvl;
+        public float experienceMaxVal;//
+        public float healthSkill;
+        public int skillPoints;
+        public float oxygenSkill;
+        public float speedSkill;
+        public float strengthSkill;
+        public float dropSkill;
+        public float playedTime;
+        public int expOrbsPicked;
+        public int enemiesKilled;
+        public int deaths;
     }
 
 }
