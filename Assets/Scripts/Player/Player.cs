@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
     [SerializeField]private GameObject lvlupAnimationText; // przypisac prefab "LvlUpText"
     [SerializeField]private Canvas myCanvas; //PlayerCanv(LvlUp) -  musi być dodany do gracza!
 
-    [SerializeField]private Text playerLevelText;
+    [SerializeField]public Text playerLevelText;
 
 	//  OXYGEN SETTING
 	[SerializeField]private float oxygenDelay = 3f;
@@ -51,10 +51,7 @@ public class Player : MonoBehaviour {
 		playerLevel.Initialize ();
 
 		//Wstępnie. System doświadczenia. Dla każdego levela ilość wymaganego doświadczenia wzrasta 5-krotnie
-		exp.MaxVal = playerLevel.CurrentVal * 5;
-		exp.CurrentVal = 0; //zmienic gdyby wprowadzone save'y
-
-        
+		exp.MaxVal = playerLevel.CurrentVal * 5;  
 	}
 	
 	void Start () {

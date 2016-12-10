@@ -80,9 +80,14 @@ public class GameSave : MonoBehaviour
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
             player.health.CurrentVal = data.health;
+			player.playerLevel.CurrentVal = data.playerLevel;
             player.exp.CurrentVal = data.experience;
+			//poprawka kaje:
+			player.exp.MaxVal = player.playerLevel.CurrentVal * 5;  
+			player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
+
             player.transform.position = new Vector3(data.x, data.y, data.z);
-            player.playerLevel.CurrentVal = data.playerLevel;
+
             player.oxygen.CurrentVal = data.oxygen;
             player.laserUpgrade.CurrentVal = data.upgradeLvl;
             player.exp.MaxVal = data.experienceMaxVal;
