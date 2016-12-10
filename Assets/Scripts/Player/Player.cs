@@ -56,9 +56,7 @@ public class Player : MonoBehaviour {
 	
 	void Start () {
         StartCoroutine(OxygenOut());
-        exp.Initialize();
-        oxygen.Initialize();
-        playerLevel.Initialize();
+      
     }
 
  
@@ -104,14 +102,14 @@ public class Player : MonoBehaviour {
 		enemiesKilled++;
 	}
 
-   void OnTriggerEnter(Collider other) // funkcja do wykrywania wejscia na triggera
+   void OnTriggerEnter(Collider other) 
 	{
         if (isCollide) return;
         isCollide = true;
-        if (other.gameObject.CompareTag("ExpOrb"))  //jeśli napotkany trigger ma tag "ExpOrb"
+        if (other.gameObject.CompareTag("ExpOrb")) 
 		{
 			Destroy(other.gameObject);
-            //niszczymy objekt który napotkamy
+            expOrbsPicked++;
             
 			ExpUp();
 		}

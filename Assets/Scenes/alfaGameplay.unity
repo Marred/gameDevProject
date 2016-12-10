@@ -1103,6 +1103,31 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010216829198, guid: dd38046afd608704e9bbf26b9c3b4075,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010216829198, guid: dd38046afd608704e9bbf26b9c3b4075,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097232043}
+    - target: {fileID: 114000010216829198, guid: dd38046afd608704e9bbf26b9c3b4075,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Load
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012275563776, guid: dd38046afd608704e9bbf26b9c3b4075,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1097232043}
+    - target: {fileID: 114000012275563776, guid: dd38046afd608704e9bbf26b9c3b4075,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Save
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd38046afd608704e9bbf26b9c3b4075, type: 2}
   m_IsPrefabParent: 0
@@ -5114,14 +5139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ae7e24828fec14bb96bd777908db6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: 0
-  y: 0
-  z: 0
-  health: 0
-  experience: 0
-  oxygen: 0
-  upgradeLvl: 0
-  playerLevel: 0
 --- !u!1 &1106092911
 GameObject:
   m_ObjectHideFlags: 0
