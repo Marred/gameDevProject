@@ -11,9 +11,12 @@ public class Movement : MonoBehaviour {
     Rigidbody rb;
 
     public float speed;
+    public float collisionModifier;
+    public float heightDifference;
     public float searchDistance;
     public float stopDistance;
 
+    Vector3 myPosition;
     Vector3 targetPosition;
     Vector3 nullPosition;
 
@@ -24,6 +27,7 @@ public class Movement : MonoBehaviour {
     Vector3 direction;
     Vector3 offset;
     Vector3 offsetBack;
+    Vector3 heightModifier;
 
     public bool isColliding;
     public bool onEdge;
@@ -40,7 +44,9 @@ public class Movement : MonoBehaviour {
     void Start()
     {
         SetDirection(goingRight);
-        patrolStartPosition = transform.position;
+        heightModifier = new Vector3(0, heightDifference, 0);
+        myPosition = transform.position + heightModifier;
+        patrolStartPosition = myPosition;
         //Ustawia targetPosition na pozycję niemożliwą do osiągnięcia, pozwala zacząć pętlę GoTo jeśli targetPosition jest inne niż nullPosition i zakończyć, jeśli takie same
         nullPosition = new Vector3(0, -100f, 0);
         targetPosition = nullPosition;
@@ -49,8 +55,9 @@ public class Movement : MonoBehaviour {
 
 	void FixedUpdate()
     {
-        Debug.DrawLine(transform.position, offsetBack, Color.blue);
-        Debug.DrawLine(transform.position, offset, Color.red);
+        myPosition = transform.position + heightModifier;
+        Debug.DrawLine(myPosition, offsetBack, Color.blue);
+        Debug.DrawLine(myPosition, offset, Color.red);
         CheckForObstacles();
 
         //if hit ustaw targetPosition na obecną pozycję gracza
@@ -72,18 +79,18 @@ public class Movement : MonoBehaviour {
     {
         
         //Sprawdza, czy dotarł do celu, jesli tak, przerywa pętlę GoTo unieważniając warunek w funkcji Update
-        if(transform.position==targetPosition)
+        if(myPosition == targetPosition)
         {
             targetPosition = nullPosition;
-            patrolStartPosition = transform.position;
+            patrolStartPosition = myPosition;
         }
         //Sprawdza, czy gracz jest z lewej czy prawej strony i ustawia kierunek
-        if ((transform.position.x > targetPosition.x ? transform.position.x - targetPosition.x : targetPosition.x - transform.position.x)<0.05)
+        if ((myPosition.x > targetPosition.x ? myPosition.x - targetPosition.x : targetPosition.x - myPosition.x)<0.05)
         {
             goingUp = true;
             //Debug.Log("Szukam drogi do góry");
         }
-        if (transform.position.x > targetPosition.x & goingUp == false)
+        if (myPosition.x > targetPosition.x & goingUp == false)
         {
             goingRight =false;
         }
@@ -96,17 +103,16 @@ public class Movement : MonoBehaviour {
         {
             ignoreEdge = false;
             //Sprawdza, czy gracz poniżej, jeśli tak ignoruje krawędzie i spada niżej
-            if ((transform.position.y - targetPosition.y) > 0.5)
+            if ((myPosition.y - targetPosition.y) > 0.5)
             {
                 //Debug.Log("Gracz jest poniżej" + (transform.position.y - targetPosition.y));
                 ignoreEdge = true;
             }
-            else if ((targetPosition.y - transform.position.y) > 2.5)
+            else if ((targetPosition.y - myPosition.y) > 2.5)
             {
-
                 //Debug.Log("Gracz jest powyżej");
                 canJump = (Physics.CheckBox(offset, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
-                & !Physics.CheckBox(transform.position + new Vector3(0f, 3f, 0), new Vector3(1.3f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer));
+                & !Physics.CheckBox(myPosition + new Vector3(0f, 3f, 0), new Vector3(1.3f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer));
 
                 if (canJump)
                 {
@@ -114,7 +120,7 @@ public class Movement : MonoBehaviour {
                     rb.velocity = new Vector3(0, 9f, 0);
                 }
                 if (goingUp & (Physics.CheckBox(offsetBack, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
-                & !Physics.CheckBox(transform.position + new Vector3(0f, 3f, 0), new Vector3(1.35f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer)))
+                & !Physics.CheckBox(myPosition + new Vector3(0f, 3f, 0), new Vector3(1.35f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer)))
                 {
                     //Debug.Log("Obrót");
                     goingUp = false;
@@ -139,7 +145,7 @@ public class Movement : MonoBehaviour {
     //sprawdza, czy gracz jest w zasięgu, jeśli tak ustawia targetPosition na niego
     void CheckForPlayer()
     {
-        if(Vector3.Distance(transform.position, player.transform.position)<=searchDistance)
+        if(Vector3.Distance(myPosition, player.transform.position)<=searchDistance)
         {
             targetPosition = player.transform.position;
         }
@@ -148,9 +154,9 @@ public class Movement : MonoBehaviour {
     //sprawdza, czy przed nim nie ma kolizji bądź nie kończy się krawędź, jeśli tak, zmienia kierunek
     void CheckForObstacles()
     {
-        isGrounded = Physics.CheckBox(transform.position, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer);
+        isGrounded = Physics.CheckBox(myPosition, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer);
         onEdge = !Physics.CheckBox(direction, new Vector3(0, 0, -0.05f), Quaternion.Euler(0, 0, 0), groundLayer);
-        isColliding = Physics.CheckBox(direction + new Vector3(0, 0.75f, 0), new Vector3(0, 0.7f, 0.35f), Quaternion.Euler(0, 0, 0), collisionLayer);
+        isColliding = Physics.CheckBox(direction + new Vector3(collisionModifier, 0.75f, 0), new Vector3(0, 0.7f, 0.35f), Quaternion.Euler(0, 0, 0), collisionLayer);
         if (isGrounded)
         {
             if (((onEdge && !ignoreEdge) | isColliding))
@@ -164,8 +170,8 @@ public class Movement : MonoBehaviour {
     //ustawia kierunki right i left, ustawia direction przed sobą
     void SetDirection(bool goingRight)
     {
-        right = transform.position + new Vector3(0.5f, 0, 0);
-        left = transform.position - new Vector3(0.5f, 0, 0);
+        right = myPosition + new Vector3(0.5f, 0, 0);
+        left = myPosition - new Vector3(0.5f, 0, 0);
         offsetRight = right + new Vector3(1.8f, 3f, 0);
         offsetLeft = left + new Vector3(-1.8f, 3f, 0);
 
@@ -188,9 +194,9 @@ public class Movement : MonoBehaviour {
     //wykonuje ruch w kierunku direction
     void Move(Vector3 direction)
     {
-        if (Vector3.Distance(transform.position, targetPosition) > stopDistance)
+        if (Vector3.Distance(myPosition, targetPosition) > stopDistance)
         {
-            transform.position = Vector3.MoveTowards(transform.position, direction, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, direction-heightModifier, speed * Time.deltaTime);
         }
     }
     
