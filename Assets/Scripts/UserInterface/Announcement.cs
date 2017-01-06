@@ -55,7 +55,7 @@ public class Announcement : MonoBehaviour {
 	/// <param name="ann">Tekst</param>
 	/// <param name="fontSize">Rozmiar czcionki</param>
 	/// <param name="align">Ułożenie.</param>
-	void setText( string ann, int fontSize = 35, TextAnchor align = TextAnchor.MiddleLeft ){
+	public void setText( string ann, int fontSize = 35, TextAnchor align = TextAnchor.MiddleLeft ){
 		if (text != null) return; // Jeżeli ktoś błędnie użyje dwa razy setText na tym samym elemencie, to return
 		
 		textcmp.fontSize = fontSize;
@@ -89,10 +89,10 @@ public class Announcement : MonoBehaviour {
 		).ToArray ();
 	}
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.V)){
+		/*if (Input.GetKeyDown (KeyCode.V)){
 			setText ("No elo co tam?", 35, TextAnchor.MiddleCenter);
 			Debug.Log("tst");
-		}
+		}*/
 
 		// Jeśli zainicjowano obiekt, ale nie ustawiono tekstu, to wróć.
 		if (text == null)

@@ -24,6 +24,8 @@ public class Player : MonoBehaviour {
 	public int enemiesKilled;
 	public int deaths;
 
+	public GameObject announcePrefab;
+
     //animacje lvlup  postać musi zawierac prefab canvas "PlayerCanv(LvlUp)"
     [SerializeField]private GameObject lvlupAnimation; //przypisac prefab o tej samej nazwie
     [SerializeField]private GameObject lvlupAnimationText; // przypisac prefab "LvlUpText"
@@ -56,7 +58,7 @@ public class Player : MonoBehaviour {
 	
 	void Start () {
         StartCoroutine(OxygenOut());
-      
+		makeAnnouncement ("side", "Welcome to our planet");
     }
 
  
@@ -104,13 +106,13 @@ public class Player : MonoBehaviour {
 
    void OnTriggerEnter(Collider other) 
 	{
+
         if (isCollide) return;
         isCollide = true;
         if (other.gameObject.CompareTag("ExpOrb")) 
 		{
 			Destroy(other.gameObject);
             expOrbsPicked++;
-            
 			ExpUp();
 		}
         else if(other.gameObject.CompareTag("OxygenOrb"))
@@ -158,7 +160,23 @@ public class Player : MonoBehaviour {
 
         }
     }
+	public void makeAnnouncement( string type, string announcement ){
+		GameObject ann = Instantiate( announcePrefab ) as GameObject;
+		Announcement annScript = ann.GetComponent<Announcement> ();
+		ann.transform.SetParent(GameObject.Find("HUDCanvas").transform);
 
+		switch (type) {
+			case "general":
+				ann.transform.localPosition = new Vector2 (0, 0);
+				annScript.setText (announcement, 65, TextAnchor.MiddleCenter);
+				break;
+			case "side":
+				ann.transform.localPosition = new Vector2 (60, -180);
+				annScript.setText (announcement, 45, TextAnchor.MiddleLeft);	
+				break;
+		}
+		//germSpawned.transform.localRotation = spawnRotation;
+	}
 	/// <summary>
 	/// Dodaje doświadczenie.
 	/// </summary>
