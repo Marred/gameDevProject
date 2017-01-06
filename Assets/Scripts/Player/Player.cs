@@ -164,15 +164,15 @@ public class Player : MonoBehaviour {
 		GameObject ann = Instantiate( announcePrefab ) as GameObject;
 		Announcement annScript = ann.GetComponent<Announcement> ();
 		ann.transform.SetParent(GameObject.Find("HUDCanvas").transform);
-
+		ann.transform.localScale = new Vector2 (1f, 1f);
 		switch (type) {
 			case "general":
 				ann.transform.localPosition = new Vector2 (0, 0);
-				annScript.setText (announcement, 65, TextAnchor.MiddleCenter);
+				annScript.setText (announcement, 45, TextAnchor.MiddleCenter);
 				break;
 			case "side":
 				ann.transform.localPosition = new Vector2 (60, -180);
-				annScript.setText (announcement, 45, TextAnchor.MiddleLeft);	
+				annScript.setText (announcement, 35, TextAnchor.MiddleLeft);	
 				break;
 		}
 		//germSpawned.transform.localRotation = spawnRotation;

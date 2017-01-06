@@ -222,30 +222,17 @@ public class ThirdPersonCharacter : MonoBehaviour
 			m_Animator.speed = 1;
 		}
 	}
-
-	private bool collided = false;
 	void HandleAirborneMovement (float jumpDirection)
 	{
 
 		Vector3 airMove = new Vector3 (Input.GetAxis ("Horizontal") * 6f, m_Rigidbody.velocity.y, 0);
-		//if (!collided && Input.GetAxis ("Horizontal")*m_Rigidbody.velocity.y>0)
-		if(!collided)//naprawic odbijanie sie od sciany w druga strone
 		m_Rigidbody.velocity = Vector3.Lerp (m_Rigidbody.velocity, airMove, Time.deltaTime*2f);
+		Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+		m_Rigidbody.AddForce (extraGravityForce);
 
-		if(!collided){
-			Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
-			m_Rigidbody.AddForce (extraGravityForce);
-		}
+		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.001f;
+	}
 
-		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
-	}
-	void OnCollisionEnter(){
-		if( m_Rigidbody.velocity.y>0)
-		collided = true;
-	}
-	void OnCollisionExit(){
-		collided = false;
-	}
 	void HandleGroundedMovement (bool crouch, bool jump)
 	{
 
@@ -282,7 +269,7 @@ public class ThirdPersonCharacter : MonoBehaviour
 		// 0.1f is a small offset to start the ray from inside the character
 		// it is also good to note that the transform position in the sample assets is at the base of the character
 		Vector3 p1 = transform.position + m_Capsule.center;
-		if (Physics.SphereCast (p1 + (Vector3.up * 0.1f), m_Capsule.height / 2, Vector3.down, out hitInfo, m_GroundCheckDistance)) {
+		if (Physics.SphereCast (p1 + (Vector3.up * 0.2f), m_Capsule.height / 2, Vector3.down, out hitInfo, m_GroundCheckDistance)) {
 
 			//Debug.DrawRay (transform.position + (Vector3.up * 0.1f), Vector3.down, Color.green);
 			m_GroundNormal = hitInfo.normal;

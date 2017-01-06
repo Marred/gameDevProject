@@ -1512,6 +1512,10 @@ MonoBehaviour:
     bar: {fileID: 0}
     maxVal: 0
     currentVal: 0
+  laserUpgrade:
+    bar: {fileID: 0}
+    maxVal: 0
+    currentVal: 0
   healthSkill:
     bar: {fileID: 0}
     maxVal: 10
@@ -1537,6 +1541,8 @@ MonoBehaviour:
   expOrbsPicked: 0
   enemiesKilled: 0
   deaths: 0
+  announcePrefab: {fileID: 1000012079095568, guid: 1c55b96b30f7cef429eae847a89e45dc,
+    type: 2}
   lvlupAnimation: {fileID: 0}
   lvlupAnimationText: {fileID: 0}
   myCanvas: {fileID: 0}
