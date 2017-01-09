@@ -125,7 +125,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Attack()
     {
-        player.health.CurrentVal -= 2;
+       // player.health.CurrentVal -= 2;
     }
 
     void OnTriggerEnter(Collider coll)
