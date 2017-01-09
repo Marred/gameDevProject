@@ -30,7 +30,7 @@ public class IKHandler : MonoBehaviour {
 	void Start () {
 		this.animator = GetComponent<Animator> ();
 		pl = GetComponent<ThirdPersonCharacter> ();
-		Debug.Log ("Lol");
+	//	Debug.Log ("Lol");
 	}
 
 	void OnAnimatorIK( )

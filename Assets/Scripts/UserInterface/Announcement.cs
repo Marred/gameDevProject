@@ -149,7 +149,7 @@ public class Announcement : MonoBehaviour {
 
 		//Jeśli usunięto wszystkie znaki, to zniszcz obiekt
 		if (removeCur == text.Length) {
-			Debug.Log ("finito");
+			
 			Destroy (this.gameObject);
 		}
 
