@@ -2011,7 +2011,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012524617926, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.05
+      value: 1.11
       objectReference: {fileID: 0}
     - target: {fileID: 4000012524617926, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2036,6 +2036,10 @@ Prefab:
     - target: {fileID: 4000012524617926, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012747809070, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
@@ -2194,7 +2198,6 @@ MonoBehaviour:
   isColliding: 0
   onEdge: 0
   isGrounded: 0
-  moveSpeed: 0
   patrolDistance: 0
 --- !u!1001 &530475683
 Prefab:

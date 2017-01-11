@@ -51,6 +51,7 @@ public class Movement : MonoBehaviour {
         nullPosition = new Vector3(0, -100f, 0);
         targetPosition = nullPosition;
         rb = GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 	void FixedUpdate()
