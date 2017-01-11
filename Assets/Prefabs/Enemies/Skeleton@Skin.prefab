@@ -369,6 +369,7 @@ GameObject:
   - 54: {fileID: 54000010580725510}
   - 65: {fileID: 65000011948039716}
   - 114: {fileID: 114000011282170688}
+  - 114: {fileID: 114000010880119468}
   m_Layer: 0
   m_Name: Skeleton@Skin
   m_TagString: Untagged
@@ -1225,6 +1226,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010880119468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012591679208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702507e6f189b6b4f950e541a26a8848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!114 &114000011282170688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1247,7 +1261,10 @@ MonoBehaviour:
     m_Bits: 4294966783
   player: {fileID: 0}
   speed: 3
+  collisionModifier: 0
+  heightDifference: 0
   searchDistance: 50
+  stopDistance: 0
   isColliding: 0
   onEdge: 0
   isGrounded: 0
