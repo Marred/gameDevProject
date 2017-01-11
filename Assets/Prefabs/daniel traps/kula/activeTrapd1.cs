@@ -2,14 +2,29 @@
 using System.Collections;
 
 public class activeTrapd1 : MonoBehaviour {
-    GameObject trap;
+    [SerializeField]GameObject trap;
+    private bool isCollide = false;
+    void Update()
+    {
+        isCollide = false;
+    }
     void OnTriggerEnter(Collider other)
     {
-       
+        if (isCollide) return;
+        isCollide = true;
         if (other.gameObject.tag == "Player")
         {
-
-            Destroy(GameObject.FindWithTag("Dtrap1"));
+            if (trap.activeSelf == true)
+            {
+                trap.SetActive(false);
+                Debug.Log("dezaktywuje");
+            }
+            else
+            {
+                trap.SetActive(true);
+                Debug.Log("aktywuje");
+            }
+            Destroy(this.gameObject);
 
         }
     }
