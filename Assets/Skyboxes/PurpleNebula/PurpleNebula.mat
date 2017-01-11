@@ -63,7 +63,7 @@ Material:
       second: 1
     - first:
         name: _Rotation
-      second: 0
+      second: 20
     m_Colors:
     - first:
         name: _Color

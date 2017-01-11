@@ -79,6 +79,7 @@ GameObject:
   - 65: {fileID: 65000012595519130}
   - 114: {fileID: 114000012001968994}
   - 114: {fileID: 114000011340005528}
+  - 114: {fileID: 114000010912519192}
   m_Layer: 0
   m_Name: MeleeEnemy 1
   m_TagString: Enemy
@@ -545,6 +546,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5, z: 1}
   m_Center: {x: 0, y: -0.25, z: 0}
+--- !u!114 &114000010912519192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012747809070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37378819c025cee41be405d3ffcbbaa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmgtext: {fileID: 1000011754910636, guid: cbf5e43fc7ff32147b9445c4f1b82147, type: 2}
+  enemyHealth:
+    bar: {fileID: 0}
+    maxVal: 25
+    currentVal: 25
+  expOrb: {fileID: 1000012148891048, guid: f776a59388e5e3d40bd9ab5179943c7e, type: 2}
+  oxygenOrb: {fileID: 1000012148891048, guid: 11aa99cbb6eb9854d9026fe2b03ca9c9, type: 2}
+  healthOrb: {fileID: 1000012800908854, guid: 310063f4d792c0f44ad8372aab44360f, type: 2}
 --- !u!114 &114000011340005528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -579,7 +599,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294966783
   player: {fileID: 0}
-  speed: 2
+  speed: 4
   collisionModifier: 1.5
   heightDifference: -1
   searchDistance: 50
@@ -587,7 +607,7 @@ MonoBehaviour:
   isColliding: 0
   onEdge: 0
   isGrounded: 0
-  patrolDistance: 0
+  patrolDistance: 3
 --- !u!136 &136000010578770730
 CapsuleCollider:
   m_ObjectHideFlags: 1
