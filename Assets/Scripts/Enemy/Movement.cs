@@ -10,7 +10,7 @@ public class Movement : MonoBehaviour {
     public GameObject player;
     Rigidbody rb;
 
-    public float speed;
+    public float speed=2;
     public float collisionModifier;
     public float heightDifference;
     public float searchDistance;
@@ -37,7 +37,6 @@ public class Movement : MonoBehaviour {
     bool canJump;
     public bool isGrounded;
     bool goingUp;
-    public float moveSpeed;
 
     Vector3 patrolStartPosition;
     public float patrolDistance;
@@ -195,18 +194,12 @@ public class Movement : MonoBehaviour {
     //wykonuje ruch w kierunku direction
     void Move(Vector3 direction)
     {
-
-        moveSpeed = 0;
         
         if (Vector3.Distance(myPosition, targetPosition) > stopDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, direction-heightModifier, speed*Time.deltaTime);
-
-            if (isGrounded)
-            {
-                moveSpeed = speed;
-            }
         }
+
     }
     
 }

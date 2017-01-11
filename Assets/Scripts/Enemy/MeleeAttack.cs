@@ -3,15 +3,17 @@ using System.Collections;
 
 public class MeleeAttack : MonoBehaviour {
 
-    public float attackDistance;
-    public bool isAttacking;
-    public float rotationSpeed;
+    public float attackDistance = 2;
+    bool isAttacking;
+    float rotationSpeed;
 
     public GameObject saw;
-    public GameObject playerObject;
-    private Player playerScript;
+    GameObject playerObject;
+    Player playerScript;
 
     void Start () {
+
+        playerObject = GameObject.FindWithTag("Player");
         playerScript = playerObject.GetComponent<Player>();
     }
 
