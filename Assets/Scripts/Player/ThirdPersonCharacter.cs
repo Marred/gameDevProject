@@ -18,7 +18,7 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 	Rigidbody m_Rigidbody;
 	Animator m_Animator;
-	bool m_IsGrounded;
+	public bool m_IsGrounded;
 	float m_OrigGroundCheckDistance;
 	const float k_Half = 0.5f;
 
@@ -42,6 +42,7 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 	//temp:
 	public float aimAngle = 0f;
+
 
 	void Start ()
 	{
@@ -235,7 +236,6 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 	void HandleGroundedMovement (bool crouch, bool jump)
 	{
-
 		// check whether conditions are right to allow a jump:
 		if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo (0).IsName ("Grounded")) {
 			// jump!

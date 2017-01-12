@@ -67,7 +67,7 @@ public class Player : MonoBehaviour {
         isCollide = false;
 
 		playedTime += Time.deltaTime;
-        if (health.CurrentVal <= 0 && oxygen.CurrentVal == 0)
+		if (health.CurrentVal <= 0) // && oxygen.CurrentVal == 0 po co? Poprawka: kajetan
         {
             StopAllCoroutines();
         }

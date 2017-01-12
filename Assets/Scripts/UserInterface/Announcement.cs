@@ -88,7 +88,7 @@ public class Announcement : MonoBehaviour {
 			x => Random.Range (0,text.Length)
 		).ToArray ();
 	}
-	void Update () {
+	void FixedUpdate () {
 		/*if (Input.GetKeyDown (KeyCode.V)){
 			setText ("No elo co tam?", 35, TextAnchor.MiddleCenter);
 			Debug.Log("tst");

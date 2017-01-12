@@ -763,6 +763,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012523544510, guid: 60481c086db8bab44a8c82c80382d164,
     type: 2}
   m_PrefabInternal: {fileID: 1277330433}
+--- !u!114 &368469959 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013706906132, guid: 5d6571370a794b54c81fbb3abf6f9b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247852389}
+  m_Script: {fileID: 11500000, guid: f857fd1689dcde2438886d76fc12a66e, type: 3}
 --- !u!1001 &374806743
 Prefab:
   m_ObjectHideFlags: 0
@@ -1464,6 +1470,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 640595062}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &648393274 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000014026366082, guid: 5d6571370a794b54c81fbb3abf6f9b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247852389}
+  m_Script: {fileID: 11500000, guid: f857fd1689dcde2438886d76fc12a66e, type: 3}
 --- !u!1 &663220348 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1000011373336570, guid: 5d6571370a794b54c81fbb3abf6f9b95,
@@ -3353,11 +3365,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+    - target: {fileID: 114000013093327234, guid: 6507fcd121d20ce47a3bc91e90355131,
         type: 2}
-      propertyPath: oxygen.bar
+      propertyPath: camera
       value: 
-      objectReference: {fileID: 1333897064}
+      objectReference: {fileID: 1567915597}
+    - target: {fileID: 114000010617754844, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
+      propertyPath: deathCanvas
+      value: 
+      objectReference: {fileID: 2102522000}
     - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
         type: 2}
       propertyPath: health.bar
@@ -3370,44 +3387,39 @@ Prefab:
       objectReference: {fileID: 706467534}
     - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
         type: 2}
+      propertyPath: oxygen.bar
+      value: 
+      objectReference: {fileID: 1333897064}
+    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
+      propertyPath: healthSkill.bar
+      value: 
+      objectReference: {fileID: 2014402346}
+    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
+      propertyPath: oxygenSkill.bar
+      value: 
+      objectReference: {fileID: 368469959}
+    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
+      propertyPath: speedSkill.bar
+      value: 
+      objectReference: {fileID: 648393274}
+    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
+      propertyPath: strengthSkill.bar
+      value: 
+      objectReference: {fileID: 1470089586}
+    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
+      propertyPath: dropSkill.bar
+      value: 
+      objectReference: {fileID: 1717462928}
+    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
+        type: 2}
       propertyPath: playerLevelText
       value: 
       objectReference: {fileID: 1106003084}
-    - target: {fileID: 114000013093327234, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: camera
-      value: 
-      objectReference: {fileID: 1567915597}
-    - target: {fileID: 114000010617754844, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: deathCanvas
-      value: 
-      objectReference: {fileID: 2102522000}
-    - target: {fileID: 114000010617754844, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: isDead
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013814212288, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: oxygenDelay
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 65000010726385068, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 82000011895221872, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: MaxDistance
-      value: 1499.6504
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013538891518, guid: 6507fcd121d20ce47a3bc91e90355131,
-        type: 2}
-      propertyPath: m_JumpPower
-      value: 11
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6507fcd121d20ce47a3bc91e90355131, type: 2}
   m_IsPrefabParent: 0
@@ -4370,6 +4382,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012524617926, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c,
     type: 2}
   m_PrefabInternal: {fileID: 633576350}
+--- !u!114 &1470089586 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010753244154, guid: 5d6571370a794b54c81fbb3abf6f9b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247852389}
+  m_Script: {fileID: 11500000, guid: f857fd1689dcde2438886d76fc12a66e, type: 3}
 --- !u!1 &1482298730
 GameObject:
   m_ObjectHideFlags: 0
@@ -4999,6 +5017,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d9d1fbfcf69364ffd8f9c6ade9ce90fe, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1717462928 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000012271909074, guid: 5d6571370a794b54c81fbb3abf6f9b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247852389}
+  m_Script: {fileID: 11500000, guid: f857fd1689dcde2438886d76fc12a66e, type: 3}
 --- !u!1 &1717470332
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,6 +5972,12 @@ Transform:
   - {fileID: 1717470333}
   m_Father: {fileID: 1595103815}
   m_RootOrder: 1
+--- !u!114 &2014402346 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010105267016, guid: 5d6571370a794b54c81fbb3abf6f9b95,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247852389}
+  m_Script: {fileID: 11500000, guid: f857fd1689dcde2438886d76fc12a66e, type: 3}
 --- !u!1001 &2031786642
 Prefab:
   m_ObjectHideFlags: 0

@@ -26,7 +26,8 @@ public class SpawnBolt : MonoBehaviour {
 	
 	void Update ()
     {
-        if (Input.GetButton("Fire1") && Time.time > nextFire) //Time.time jest to czas od rozpoczęcia gry i ma ta same wartosc jezeli                                            
+		//Kajetan: Poprawka bo mozna bylo strzelac wczesniej przy wlaczonym menu
+		if (Input.GetButton("Fire1") && Time.time > nextFire && Time.timeScale > 0) //Time.time jest to czas od rozpoczęcia gry i ma ta same wartosc jezeli                                            
         {    //[..]jest uzywany kilka razy w tej samej klatce
             nextFire = Time.time + fireRate;
 

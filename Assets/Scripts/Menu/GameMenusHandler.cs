@@ -11,6 +11,13 @@ public class GameMenusHandler : MonoBehaviour
 	public GameObject pauseMenu;
 	public GameObject hud;
 
+	private AudioSource[] allAudioSources;
+
+	private Player player;
+
+	void Start(){
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+	}
     void Update()
     {
         //pauzowanie klawiszem escape
@@ -48,7 +55,13 @@ public class GameMenusHandler : MonoBehaviour
 		//aby wywolac metode onEnable
 		///foreach (MonoBehaviour comp in menu.GetComponents<MonoBehaviour>())
 		//	comp.enabled = true;
-		
+
+		//tymczasowy fix?
+		allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+		foreach( AudioSource audio in allAudioSources) {
+			audio.Stop();
+		}
+
 		menu.SetActive(true);
 		hud.SetActive(false);
 		Time.timeScale = 0;

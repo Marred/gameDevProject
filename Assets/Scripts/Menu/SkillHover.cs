@@ -7,7 +7,7 @@ public class SkillHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	private Image bg;
 	private Text info;
 
-	private AudioSource source { get { return GetComponent<AudioSource> (); } }
+	private AudioSource source;
 
 	Color blackA = new Color32 (0, 0, 0, 132);
 	Color greyA = new Color32 (35, 35, 35, 132);
@@ -30,7 +30,7 @@ public class SkillHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 	// Use this for initialization
 	void Start () {
-		gameObject.AddComponent<AudioSource> ();
+		source = gameObject.AddComponent<AudioSource> ();
 		source.clip = sound;
 		source.playOnAwake = false;
 		source.volume = 0.3f;

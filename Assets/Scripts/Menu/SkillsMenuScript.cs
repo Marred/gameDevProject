@@ -15,7 +15,7 @@ public class SkillsMenuScript : MonoBehaviour {
 	private skillPoint drop 	 = new skillPoint();
 
 	// Dynamiczne pobranie AudioSource (jest też tworzone dynamicznie, więc nie można bezposrednio przypisać
-	private AudioSource addSkillSndSource { get { return GetComponent<AudioSource> (); } }
+	private AudioSource addSkillSndSource;
 	// Klip audio odgrywany podczas kliknięcia przycisku PLUS
 	[SerializeField] private AudioClip addSkillSnd;
 
@@ -36,7 +36,7 @@ public class SkillsMenuScript : MonoBehaviour {
 
 	//nie Start, bo start uruchamia sie dopiero gdy component jest wlaczony
 	void Awake(){
-		gameObject.AddComponent<AudioSource> ();
+		addSkillSndSource = gameObject.AddComponent<AudioSource> ();
 		addSkillSndSource.clip = addSkillSnd;
 		addSkillSndSource.playOnAwake = false;
 		addSkillSndSource.volume = 0.8f;
