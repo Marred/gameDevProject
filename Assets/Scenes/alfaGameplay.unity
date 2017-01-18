@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14895624, g: 0.09655475, b: 0.20464996, a: 1}
+  m_IndirectSpecularColor: {r: 0.14963004, g: 0.097124435, b: 0.20541123, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2055,6 +2055,11 @@ Prefab:
     - target: {fileID: 1000012747809070, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
       propertyPath: m_TagString
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 54000013636886934, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 88
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1cf6c99c5b88f4f91564e7b9fd4c3c, type: 2}
