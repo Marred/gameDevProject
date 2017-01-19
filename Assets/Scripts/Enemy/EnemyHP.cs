@@ -14,7 +14,7 @@ public class EnemyHP : MonoBehaviour
 	[SerializeField]private GameObject dmgtext;
 	[SerializeField]public Stat enemyHealth; //edited
     // DMG TEXT KOREKTA
-	private Vector3 polozenie = new Vector3(0, 0, -1); 
+    private Vector3 polozenie = new Vector3(0, 0, -1); 
 
 	// DROP
 	private Vector3 shift = new Vector3(0.5f, 0, 0);
@@ -40,9 +40,10 @@ public class EnemyHP : MonoBehaviour
 		myDeath += player.enemyDeath;
 		myDeath += Destroy;
 
-		//te parametry beda moglby byc dynamicznie zmieniane teraz
-		enemyHealth.MaxVal = 15f;
-		enemyHealth.CurrentVal = 15f;
+        //te parametry beda moglby byc dynamicznie zmieniane teraz
+       //  enemyHealth.MaxVal = hp;
+	
+   //    enemyHealth.CurrentVal = hp;
 
 		enemyTransform = GetComponent<Transform>();
 		//player = GameObject.FindWithTag ("Player").GetComponent(; //nie ustawiam w inspektorze, bo i tak tag player ma tylko gracz
@@ -59,7 +60,7 @@ public class EnemyHP : MonoBehaviour
 
 		//wyslanie wiadomości do naszego obiektu(tekst) z nazwa funkcji do wykonania oraz wartoscia obrazen
 		ObjTextDmg.SendMessage("SetTextDmg", dmg.ToString());
-
+        Debug.Log(enemyHealth.CurrentVal);
 		//zadawanie obrazen
 		enemyHealth.CurrentVal -= dmg;
 
