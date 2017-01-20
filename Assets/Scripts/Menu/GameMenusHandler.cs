@@ -10,6 +10,7 @@ public class GameMenusHandler : MonoBehaviour
 	public GameObject statsMenu;
 	public GameObject pauseMenu;
 	public GameObject hud;
+    public GameObject howToPlay;
 
 	private AudioSource[] allAudioSources;
 

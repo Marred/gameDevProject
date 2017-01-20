@@ -40,9 +40,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isPaused: 0
   statsMenuOpened: 0
-  statsMenu: {fileID: 1000012714378722, guid: 38899c9a867863648a459a7b2bc90d59, type: 2}
+  statsMenu: {fileID: 1000011373336570, guid: 5d6571370a794b54c81fbb3abf6f9b95, type: 2}
   pauseMenu: {fileID: 1000013934852724, guid: dd38046afd608704e9bbf26b9c3b4075, type: 2}
   hud: {fileID: 1000012523544510, guid: 60481c086db8bab44a8c82c80382d164, type: 2}
+  howToPlay: {fileID: 1000010665095756, guid: e00341c71a1f11a43a87cf32d9dd0cac, type: 2}
 --- !u!224 &224000012998055730
 RectTransform:
   m_ObjectHideFlags: 1
