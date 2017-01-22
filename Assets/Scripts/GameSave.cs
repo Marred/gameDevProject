@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using UnityEngine.SceneManagement;
 public class GameSave : MonoBehaviour
 {
     public static GameSave control;
@@ -16,10 +17,11 @@ public class GameSave : MonoBehaviour
      float oxygen;
      float upgradeLvl;
      float playerLevel;
-
+    
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        
+        
         if (control == null)
         {
             DontDestroyOnLoad(this);
@@ -32,7 +34,9 @@ public class GameSave : MonoBehaviour
     }
    void Update()
     {
-        if(Input.GetKey(KeyCode.F5))
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        if (Input.GetKey(KeyCode.F5))
         {
             Save();
         }
@@ -44,10 +48,14 @@ public class GameSave : MonoBehaviour
 
     public void Save()
     {
+        
+        Scene scene = SceneManager.GetActiveScene();
+        Debug.Log(scene.name);
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
         PlayerData data = new PlayerData();
+        data.scena = scene.name;
         data.health = player.health.CurrentVal;
         data.experience = player.exp.CurrentVal;
         data.x = player.transform.position.x;
@@ -67,7 +75,7 @@ public class GameSave : MonoBehaviour
         data.expOrbsPicked = player.expOrbsPicked;
         data.enemiesKilled = player.enemiesKilled;
         data.deaths = player.deaths;
-    bf.Serialize(file, data);
+        bf.Serialize(file, data);
         file.Close();
     }
 
@@ -75,10 +83,18 @@ public class GameSave : MonoBehaviour
     {
         if(File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
         {
+
+            
+
+
+
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             PlayerData data = (PlayerData)bf.Deserialize(file);
             file.Close();
+          //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
+            //Application.LoadLevel(data.scena);
+
             player.health.CurrentVal = data.health;
 			player.playerLevel.CurrentVal = data.playerLevel;
             player.exp.CurrentVal = data.experience;
@@ -102,6 +118,8 @@ public class GameSave : MonoBehaviour
             player.expOrbsPicked = data.expOrbsPicked;
             player.enemiesKilled = data.enemiesKilled;
             player.deaths = data.deaths;
+            //Application.LoadLevel(data.scena);
+           // 
         }
     }
 
@@ -127,6 +145,7 @@ public class GameSave : MonoBehaviour
         public int expOrbsPicked;
         public int enemiesKilled;
         public int deaths;
+        public string scena;
     }
 
 }

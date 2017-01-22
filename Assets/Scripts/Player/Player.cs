@@ -196,8 +196,8 @@ public class Player : MonoBehaviour {
 		skillPoints++;
 
         //inicjalizacja animacji lvlUp
-        GameObject lvlUpAnim = Instantiate(lvlupAnimation, transform.position, Quaternion.identity,this.transform) as GameObject;
-        GameObject lvlupAnimaText = Instantiate(lvlupAnimationText, new Vector3(transform.position.x, transform.position.y, -1) ,Quaternion.identity, myCanvas.transform) as GameObject;
+      /*  GameObject lvlUpAnim = */Instantiate(lvlupAnimation, transform.position, Quaternion.identity,this.transform) /*as GameObject*/;
+      /*  GameObject lvlupAnimaText =*/ Instantiate(lvlupAnimationText, new Vector3(transform.position.x, transform.position.y, -1) ,Quaternion.identity, myCanvas.transform)/* as GameObject*/;
         oxygen.CurrentVal = oxygen.MaxVal;
         health.CurrentVal = health.MaxVal;
         playerLevel.CurrentVal += 1;

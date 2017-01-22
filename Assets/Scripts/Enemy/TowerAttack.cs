@@ -12,6 +12,7 @@ public class TowerAttack : MonoBehaviour {//skrypt przeznaczony do strzelania pr
     RaycastHit hit;
     [SerializeField]private float nextFire = 0.5f;
     [SerializeField]private float fireRate;
+    [SerializeField]private int distance = 7;
     [SerializeField]private GameObject bolt;
     [SerializeField]private Transform spawn; //należy dołączyć pusty obiekt spawn obrot dostosowac do enemy
  
@@ -24,10 +25,10 @@ public class TowerAttack : MonoBehaviour {//skrypt przeznaczony do strzelania pr
 
     void Update () {
         this.transform.LookAt(player.transform.position+ positionController);
-        Vector3 fwd = transform.TransformDirection(Vector3.forward) * 7;
+        Vector3 fwd = transform.TransformDirection(Vector3.forward) * distance;
         Debug.DrawRay(transform.position , fwd, Color.green);
 
-        if (Physics.Raycast(transform.position , fwd, out hit,7))
+        if (Physics.Raycast(transform.position , fwd, out hit,distance))
         {
             if (hit.collider.tag == "Player" && Time.time > nextFire)
             {
