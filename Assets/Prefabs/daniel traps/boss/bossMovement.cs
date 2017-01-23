@@ -25,7 +25,7 @@ public class bossMovement : MonoBehaviour {
         SetTransformZ(0f);
         
         float distance = Vector3.Distance(transform.position, player.position);
-        // If the enemy and the player have health left...
+        
         if (5 < distance && distance<14)
         {
             // ... set the destination of the nav mesh agent to the player.

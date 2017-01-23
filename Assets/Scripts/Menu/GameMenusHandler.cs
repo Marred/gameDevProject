@@ -27,11 +27,13 @@ public class GameMenusHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
 			if (!pauseMenu.activeSelf) {
-				if (!statsMenu.activeSelf) {
+				if (!statsMenu.activeSelf && !howToPlay.activeSelf) {
 					openMenu (pauseMenu);
 				} else if(statsMenu.activeSelf) {
 					closeMenu (statsMenu);
-				}
+				}  else if (howToPlay.activeSelf) {
+                    closeMenu(howToPlay);
+                }
 			}
 			else {
 				closeMenu (pauseMenu);
@@ -40,7 +42,8 @@ public class GameMenusHandler : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.B))
 		{
-			if (!pauseMenu.activeSelf){
+			if (!pauseMenu.activeSelf && !howToPlay.activeSelf)
+            {
 				if (!statsMenu.activeSelf) {
 					openMenu (statsMenu);
 				} else {

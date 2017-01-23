@@ -9,29 +9,30 @@ public class GameSave : MonoBehaviour
 {
     public static GameSave control;
     private Player player;
-     float x;
-     float y;
-     float z;
-     float health;
-     float experience;
-     float oxygen;
-     float upgradeLvl;
-     float playerLevel;
-    
+    float x;
+    float y;
+    float z;
+    float health;
+    float experience;
+    float oxygen;
+    float upgradeLvl;
+    float playerLevel;
+
     void Awake()
     {
-        
-        
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         if (control == null)
         {
             DontDestroyOnLoad(this);
             control = this;
         }
-        else if(control !=this)
+        else if (control != this)
         {
             Destroy(gameObject);
         }
     }
+
    void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -50,7 +51,7 @@ public class GameSave : MonoBehaviour
     {
         
         Scene scene = SceneManager.GetActiveScene();
-        Debug.Log(scene.name);
+        Debug.Log("zapis na scenie o nazwie: "+scene.name);
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
