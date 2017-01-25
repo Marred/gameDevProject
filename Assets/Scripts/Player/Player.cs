@@ -170,6 +170,11 @@ public class Player : MonoBehaviour {
 				ann.transform.localPosition = new Vector2 (0, 0);
 				annScript.setText (announcement, 45, TextAnchor.MiddleCenter);
 				break;
+			case "quest":
+				ann.transform.localPosition = new Vector2 (0, -230);
+				ann.GetComponent<Shadow> ().effectColor = Color.red;
+				annScript.setText (announcement, 25, TextAnchor.MiddleCenter);
+				break;
 			case "side":
 				ann.transform.localPosition = new Vector2 (60, -180);
 				annScript.setText (announcement, 35, TextAnchor.MiddleLeft);	

@@ -18,7 +18,7 @@ public class PlayerDeath : MonoBehaviour {
 	
 	void FixedUpdate () {
 
-	    if(player.health.CurrentVal == 0&isDead == false)
+	    if(player.health.CurrentVal == 0 && isDead == false)
         {
             Death();
             isDead = true;

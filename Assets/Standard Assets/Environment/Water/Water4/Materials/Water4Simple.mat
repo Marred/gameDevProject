@@ -100,7 +100,7 @@ Material:
       second: {r: 0.4, g: 0.39099997, b: 0.56, a: 0.7}
     - first:
         name: _BaseColor
-      second: {r: 1, g: 0, b: 0, a: 0.5058824}
+      second: {r: 0.19117647, g: 0.02389706, b: 0.048123695, a: 0.734}
     - first:
         name: _BumpDirection
       second: {r: 1, g: 30, b: 20, a: -20}
@@ -142,13 +142,13 @@ Material:
       second: {r: 0.27508128, g: 0.08562102, b: 0.09414239, a: 0.48031002}
     - first:
         name: _ReflectionColor
-      second: {r: 0, g: 0, b: 0, a: 0.47058824}
+      second: {r: 0.64705884, g: 0.12370243, b: 0.12370243, a: 0.809}
     - first:
         name: _RefractionFog
       second: {r: 0.8681778, g: 0.8797176, b: 0.8880597, a: 1}
     - first:
         name: _SpecularColor
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _WorldLightDir
       second: {r: 0.013992369, g: -0.17359081, b: -0.9847186, a: 0}
