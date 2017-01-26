@@ -79,8 +79,9 @@ public class GameSave : MonoBehaviour
         bf.Serialize(file, data);
         file.Close();
     }
-
-    public void LoadFull()
+    
+    
+    public void Load( bool loadScene=false )
     {
         if(!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
 	BinaryFormatter bf = new BinaryFormatter();
@@ -88,19 +89,17 @@ public class GameSave : MonoBehaviour
         PlayerData data = (PlayerData)bf.Deserialize(file);
         file.Close();
           //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
-        Application.LoadLevel(data.scena);
+	  
+	if( loadScene )
+        	Application.LoadLevel(data.scena);
 	
-	loadPlayer();
-    }
-    
-    public void loadPlayer(){
-
-            player.health.CurrentVal = data.health;
-			player.playerLevel.CurrentVal = data.playerLevel;
-            player.exp.CurrentVal = data.experience;
+	
+        player.health.CurrentVal = data.health;
+	player.playerLevel.CurrentVal = data.playerLevel;
+        player.exp.CurrentVal = data.experience;
 			//poprawka kaje:
-			player.exp.MaxVal = player.playerLevel.CurrentVal * 5;  
-			player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
+	player.exp.MaxVal = player.playerLevel.CurrentVal * 5;  
+	player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
 
             player.transform.position = new Vector3(data.x, data.y, data.z);
 
@@ -119,7 +118,6 @@ public class GameSave : MonoBehaviour
             player.enemiesKilled = data.enemiesKilled;
             player.deaths = data.deaths;
     }
-
     [Serializable]
     class PlayerData
     {
