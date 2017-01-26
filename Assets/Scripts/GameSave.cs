@@ -17,11 +17,13 @@ public class GameSave : MonoBehaviour
     float oxygen;
     float upgradeLvl;
     float playerLevel;
+    Scene scene;
 
     void Awake()
     {
+        scene = SceneManager.GetActiveScene();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-/*
+/*  
         if (control == null)
         {
             DontDestroyOnLoad(this);
@@ -50,7 +52,7 @@ public class GameSave : MonoBehaviour
     public void Save()
     {
         
-        Scene scene = SceneManager.GetActiveScene();
+        
         Debug.Log("zapis na scenie o nazwie: "+scene.name);
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -81,7 +83,7 @@ public class GameSave : MonoBehaviour
     }
     
     
-    public void Load( bool loadScene=false )
+    public void Load(bool loadScene=false)
     {
         if(!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
 	BinaryFormatter bf = new BinaryFormatter();
@@ -91,7 +93,7 @@ public class GameSave : MonoBehaviour
           //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
 	  
 	if( loadScene )
-        	Application.LoadLevel(data.scena);
+        	SceneManager.LoadScene(data.scena);
 	
 	
         player.health.CurrentVal = data.health;
@@ -100,8 +102,11 @@ public class GameSave : MonoBehaviour
 			//poprawka kaje:
 	player.exp.MaxVal = player.playerLevel.CurrentVal * 5;  
 	player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
-
+        if( data.scena== scene.name  )
+        {
             player.transform.position = new Vector3(data.x, data.y, data.z);
+        }
+           
 
             player.oxygen.CurrentVal = data.oxygen;
             player.laserUpgrade.CurrentVal = data.upgradeLvl;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class GameMenusHandler : MonoBehaviour
 {
     public bool isPaused;
@@ -81,5 +81,10 @@ public class GameMenusHandler : MonoBehaviour
 		Time.timeScale = 1;
 
 	}
+
+    public void mainMenu()
+    {
+        SceneManager.LoadScene("mainMenu");
+    }
 
 }
