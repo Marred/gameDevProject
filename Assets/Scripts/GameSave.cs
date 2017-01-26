@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -21,7 +21,7 @@ public class GameSave : MonoBehaviour
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+/*
         if (control == null)
         {
             DontDestroyOnLoad(this);
@@ -30,7 +30,7 @@ public class GameSave : MonoBehaviour
         else if (control != this)
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 
    void Update()
@@ -80,21 +80,20 @@ public class GameSave : MonoBehaviour
         file.Close();
     }
 
-    public void Load()
+    public void LoadFull()
     {
-        if(File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
-        {
-
-            
-
-
-
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
-            PlayerData data = (PlayerData)bf.Deserialize(file);
-            file.Close();
+        if(!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
+	BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+        PlayerData data = (PlayerData)bf.Deserialize(file);
+        file.Close();
           //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
-            //Application.LoadLevel(data.scena);
+        Application.LoadLevel(data.scena);
+	
+	loadPlayer();
+    }
+    
+    public void loadPlayer(){
 
             player.health.CurrentVal = data.health;
 			player.playerLevel.CurrentVal = data.playerLevel;
@@ -119,9 +118,6 @@ public class GameSave : MonoBehaviour
             player.expOrbsPicked = data.expOrbsPicked;
             player.enemiesKilled = data.enemiesKilled;
             player.deaths = data.deaths;
-            //Application.LoadLevel(data.scena);
-           // 
-        }
     }
 
     [Serializable]
