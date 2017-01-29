@@ -3,14 +3,14 @@ using System.Collections;
 
 public class bossMovement : MonoBehaviour {
     Animator animator;
-    Transform player;               // Reference to the player's position.
+    Transform player;               
    
-    NavMeshAgent nav;               // Reference to the nav mesh agent.
+    NavMeshAgent nav;               
 
 
     void Awake()
     {
-        // Set up the references.
+        
         player = GameObject.FindGameObjectWithTag("Player").transform;
         animator = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -26,7 +26,7 @@ public class bossMovement : MonoBehaviour {
         
         float distance = Vector3.Distance(transform.position, player.position);
         
-        if (5 < distance && distance<14)
+        if (6 < distance && distance<14)
         {
             // ... set the destination of the nav mesh agent to the player.
             nav.SetDestination(player.position);

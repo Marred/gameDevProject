@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour {
 	public GameObject enemy;
 	public float repeatTime = 5f;
     public int counter= 0;
+    [SerializeField] int maxCounter=4;
 	// Use this for initialization
 	void Start () {
         //rozpocznij powtarzanie, metoda, czas do startu, czas między powtórzeniami
@@ -16,7 +17,7 @@ public class EnemySpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Spawn () {
         //wywołaj, wywoływany obiekt, pozycja, obrót
-        if (counter <= 4)
+        if (counter <= maxCounter)
         {
             Instantiate(enemy, transform.position, Quaternion.identity);
 
