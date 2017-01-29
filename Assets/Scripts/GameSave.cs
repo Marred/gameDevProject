@@ -18,26 +18,30 @@ public class GameSave : MonoBehaviour
     float upgradeLvl;
     float playerLevel;
     Scene scene;
-
+    bool beingLoaded;
+    public bool controler = true;
     void Awake()
     {
         scene = SceneManager.GetActiveScene();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-/*  
-        if (control == null)
+        if (scene.name != "mainMenu") { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(); }
+        if (controler) { 
+            if (control == null)
         {
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this); 
             control = this;
         }
         else if (control != this)
         {
-            Destroy(gameObject);
-        }*/
+            Destroy(this);
+        }
+        }
     }
+    void OnLevelWasLoaded() {if(beingLoaded) Load(); }
 
    void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        scene = SceneManager.GetActiveScene();
+        if (scene.name != "mainMenu") { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(); }
 
         if (Input.GetKey(KeyCode.F5))
         {
@@ -47,6 +51,7 @@ public class GameSave : MonoBehaviour
         {
             Load();
         }
+        if (beingLoaded) { Load(); }
     }
 
     public void Save()
@@ -81,32 +86,40 @@ public class GameSave : MonoBehaviour
         bf.Serialize(file, data);
         file.Close();
     }
-    
-    
-    public void Load(bool loadScene=false)
+
+    // bool loadScene = false
+    public void LoadScene()
+    {
+        if (!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
+        PlayerData data = (PlayerData)bf.Deserialize(file);
+        file.Close();
+        //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
+        beingLoaded = true;
+        SceneManager.LoadScene(data.scena);
+        
+    }
+    public void Load()
     {
         if(!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
 	BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
         PlayerData data = (PlayerData)bf.Deserialize(file);
         file.Close();
-          //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
-	  
-	if( loadScene )
-        	SceneManager.LoadScene(data.scena);
-	
-	
-        player.health.CurrentVal = data.health;
-	player.playerLevel.CurrentVal = data.playerLevel;
-        player.exp.CurrentVal = data.experience;
-			//poprawka kaje:
-	player.exp.MaxVal = player.playerLevel.CurrentVal * 5;  
-	player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
-        if( data.scena== scene.name  )
-        {
-            player.transform.position = new Vector3(data.x, data.y, data.z);
-        }
-           
+        //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
+        beingLoaded = false;
+
+            player.health.CurrentVal = data.health;
+            player.playerLevel.CurrentVal = data.playerLevel;
+            player.exp.CurrentVal = data.experience;
+            //poprawka kaje:
+            player.exp.MaxVal = player.playerLevel.CurrentVal * 5;
+            player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
+          //  if (data.scena == scene.name) {
+                player.transform.position = new Vector3(data.x, data.y, data.z);
+          //  }
+
 
             player.oxygen.CurrentVal = data.oxygen;
             player.laserUpgrade.CurrentVal = data.upgradeLvl;
@@ -122,6 +135,7 @@ public class GameSave : MonoBehaviour
             player.expOrbsPicked = data.expOrbsPicked;
             player.enemiesKilled = data.enemiesKilled;
             player.deaths = data.deaths;
+        
     }
     [Serializable]
     class PlayerData

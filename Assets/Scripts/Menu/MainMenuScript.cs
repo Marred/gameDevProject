@@ -7,12 +7,12 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour {
-
+    
 	public void SetScene () {
 
         SceneManager.LoadScene(1);
 
-    }
+    } 
     public void loadGame()
     {
         if (!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
