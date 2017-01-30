@@ -6,9 +6,9 @@ public class EnemyHP : MonoBehaviour
 	// DELEGAT ŚMIERCI PRZECIWNIKA
 	public delegate void Death( GameObject enemy );
 	Death myDeath;
-
-	// ENEMY TRANSFORM
-	private Transform enemyTransform;
+    [SerializeField]private bool isBoss;
+    // ENEMY TRANSFORM
+    private Transform enemyTransform;
 
 	// DAMAGE
 	[SerializeField]private GameObject dmgtext;
@@ -64,7 +64,7 @@ public class EnemyHP : MonoBehaviour
 		//zadawanie obrazen
 		enemyHealth.CurrentVal -= dmg;
 
-		if (enemyHealth.CurrentVal <= 0 && myDeath != null ) {
+		if (enemyHealth.CurrentVal <= 0 && myDeath != null &&!isBoss) {
 			myDeath (this.gameObject);
 		}
 	}
