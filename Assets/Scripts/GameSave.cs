@@ -18,30 +18,47 @@ public class GameSave : MonoBehaviour
     float upgradeLvl;
     float playerLevel;
     Scene scene;
-    bool beingLoaded;
+    bool beingLoaded = false;
+    int cos;
     public bool controler = true;
     void Awake()
     {
+        Debug.Log("nowa"); cos = 1;
         scene = SceneManager.GetActiveScene();
         if (scene.name != "mainMenu") { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(); }
-        if (controler) { 
+        /*if (controler)
+        {
             if (control == null)
-        {
-            DontDestroyOnLoad(this); 
-            control = this;
-        }
-        else if (control != this)
-        {
-            Destroy(this);
-        }
-        }
+            {
+                DontDestroyOnLoad(gameObject);
+                control = this;
+            }
+            else if (control != this)
+            {
+                Destroy(this);
+            }
+        }*/
     }
-    void OnLevelWasLoaded() {if(beingLoaded) Load(); }
+    void OnLevelWasLoaded()
+    {
+        //
+        Debug.Log(cos);
+    }
 
-   void Update()
+    void Update()
     {
         scene = SceneManager.GetActiveScene();
-        if (scene.name != "mainMenu") { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(); }
+        if (scene.name != "mainMenu")
+        {
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            if (!beingLoaded && player != null && player.health != null )
+            {
+                beingLoaded = true;
+                PlayerData save = readFile();
+                if(save != null && save.beingLoaded )
+                    Load();
+            }
+        }
 
         if (Input.GetKey(KeyCode.F5))
         {
@@ -51,18 +68,22 @@ public class GameSave : MonoBehaviour
         {
             Load();
         }
-        if (beingLoaded) { Load(); }
+        //  if (beingLoaded) { Load(); }
     }
 
-    public void Save()
-    {
-        
-        
-        Debug.Log("zapis na scenie o nazwie: "+scene.name);
 
+    private void saveFile( PlayerData save )
+    {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/playerInfo.dat");
+        bf.Serialize(file, save);
+        file.Close();
+    }
+    public void Save()
+    {
+        Debug.Log("zapis na scenie o nazwie: " + scene.name);
         PlayerData data = new PlayerData();
+        data.beingLoaded = false;
         data.scena = scene.name;
         data.health = player.health.CurrentVal;
         data.experience = player.exp.CurrentVal;
@@ -83,63 +104,64 @@ public class GameSave : MonoBehaviour
         data.expOrbsPicked = player.expOrbsPicked;
         data.enemiesKilled = player.enemiesKilled;
         data.deaths = player.deaths;
-        bf.Serialize(file, data);
-        file.Close();
+        saveFile(data);
     }
-
-    // bool loadScene = false
-    public void LoadScene()
+    private PlayerData readFile()
     {
-        if (!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
+        if (!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return null;
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
         PlayerData data = (PlayerData)bf.Deserialize(file);
         file.Close();
-        //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
-        beingLoaded = true;
+        return data;
+    }
+    // bool loadScene = false
+    public void LoadScene()
+    {
+        PlayerData data = readFile();
+        if (data == null) return;
+
+        data.beingLoaded = true;
+        saveFile(data);
         SceneManager.LoadScene(data.scena);
-        
+
     }
     public void Load()
     {
-        if(!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
-	BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
-        PlayerData data = (PlayerData)bf.Deserialize(file);
-        file.Close();
-        //  SceneManager.LoadScene(data.scena, LoadSceneMode.Single);
-        beingLoaded = false;
+        PlayerData data = readFile();
+        if (data == null) return;
 
-            player.health.CurrentVal = data.health;
-            player.playerLevel.CurrentVal = data.playerLevel;
-            player.exp.CurrentVal = data.experience;
-            //poprawka kaje:
-            player.exp.MaxVal = player.playerLevel.CurrentVal * 5;
-            player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
-          //  if (data.scena == scene.name) {
-                player.transform.position = new Vector3(data.x, data.y, data.z);
-          //  }
+        player.health.CurrentVal = data.health;
+        player.playerLevel.CurrentVal = data.playerLevel;
+        player.exp.CurrentVal = data.experience;
+        //poprawka kaje:
+        player.exp.MaxVal = player.playerLevel.CurrentVal * 5;
+        player.playerLevelText.text = player.playerLevel.CurrentVal.ToString() + " lvl";
+        if (data.scena == scene.name) {
+            player.transform.position = new Vector3(data.x, data.y, data.z);
+        }
 
 
-            player.oxygen.CurrentVal = data.oxygen;
-            player.laserUpgrade.CurrentVal = data.upgradeLvl;
-            player.exp.MaxVal = data.experienceMaxVal;
-            //
-            player.healthSkill.CurrentVal = data.healthSkill;
-            player.oxygenSkill.CurrentVal = data.oxygenSkill;
-            player.speedSkill.CurrentVal = data.speedSkill;
-            player.strengthSkill.CurrentVal = data.strengthSkill;
-            player.dropSkill.CurrentVal = data.dropSkill;
-            player.skillPoints = data.skillPoints;
-            player.playedTime = data.playedTime;
-            player.expOrbsPicked = data.expOrbsPicked;
-            player.enemiesKilled = data.enemiesKilled;
-            player.deaths = data.deaths;
-        
+        player.oxygen.CurrentVal = data.oxygen;
+        player.laserUpgrade.CurrentVal = data.upgradeLvl;
+        player.exp.MaxVal = data.experienceMaxVal;
+        //
+        player.healthSkill.CurrentVal = data.healthSkill;
+        player.oxygenSkill.CurrentVal = data.oxygenSkill;
+        player.speedSkill.CurrentVal = data.speedSkill;
+        player.strengthSkill.CurrentVal = data.strengthSkill;
+        player.dropSkill.CurrentVal = data.dropSkill;
+        player.skillPoints = data.skillPoints;
+        player.playedTime = data.playedTime;
+        player.expOrbsPicked = data.expOrbsPicked;
+        player.enemiesKilled = data.enemiesKilled;
+        player.deaths = data.deaths;
+        Save();
     }
     [Serializable]
     class PlayerData
     {
+        public bool beingLoaded;
         public float playerLevel;
         public float x;
         public float y;
