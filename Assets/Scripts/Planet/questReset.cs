@@ -64,12 +64,14 @@ public class questReset : MonoBehaviour {
 	void Update () {
 		isColliding = false;
 		if (fadeIn) {
+			black.gameObject.SetActive (true);
 			black.alpha = black.alpha + 0.05f;
 
 			if (black.alpha >= 1f)
 				fadeIn = false;
 		}		
 		if (fadeOut ) {
+			black.gameObject.SetActive (false);
 			black.alpha = black.alpha - 0.05f;
 
 			if (black.alpha <= 0f)

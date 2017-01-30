@@ -151,15 +151,19 @@ public class Announcement : MonoBehaviour {
 		if (removeCur == text.Length) {
 			
 			Destroy (this.gameObject);
+			return; //FIX! 2017-01-30
 		}
-
+		//Debug.Log (removeCur + "i " + text.Length);
 		// Usuwaj znaki co daną ilość klatek - hardcoded
 		curFrame++;
 		if (curFrame % (10-(text.Length/3)) != 0) // Modulo z prymitywnym wzorem odjecia 3 czesci dlugosci tekstu od liczby 10.
 			return;
 
 		// Ustawienie losowego znaku w tablicy jako pusty
-		text [removeRandom [removeCur]].curChar = ' '; // Działa, ale czy to najefektywniejsze rozwiązanie?
+		//if( removeRandom [removeCur] <= text.Length ) //poprawa bledu, ktory wywalal przy wylaczeniu mapy (?)
+		//Debug.Log("lol"); - blad powoduje wyrkzyknik
+			text [removeRandom [removeCur]].curChar = ' '; // Działa, ale czy to najefektywniejsze rozwiązanie?
+		
 		removeCur++;
 
 		// Tablica -> łańcuch znaków
