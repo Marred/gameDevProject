@@ -39,12 +39,12 @@ public class GameSave : MonoBehaviour
             }
         }*/
     }
-    void OnLevelWasLoaded()
+   /* void OnLevelWasLoaded()
     {
         //
         Debug.Log(cos);
     }
-
+    */
     void Update()
     {
         scene = SceneManager.GetActiveScene();

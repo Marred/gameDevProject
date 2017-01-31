@@ -441,18 +441,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   collisionLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294966783
   player: {fileID: 1000012736141984, guid: 6507fcd121d20ce47a3bc91e90355131, type: 2}
   speed: 2
-  collisionModifier: 1.16
+  collisionModifier: 1.3
   heightDifference: -1.22
-  searchDistance: 10
+  searchDistance: 200
   stopDistance: 4
   isColliding: 0
   onEdge: 0

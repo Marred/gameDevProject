@@ -602,7 +602,7 @@ MonoBehaviour:
   speed: 4
   collisionModifier: 1.5
   heightDifference: -1
-  searchDistance: 50
+  searchDistance: 200
   stopDistance: 1
   isColliding: 0
   onEdge: 0
