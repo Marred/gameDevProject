@@ -40,13 +40,7 @@ public class EnemyHP : MonoBehaviour
 		myDeath += player.enemyDeath;
 		myDeath += Destroy;
 
-        //te parametry beda moglby byc dynamicznie zmieniane teraz
-       //  enemyHealth.MaxVal = hp;
-	
-   //    enemyHealth.CurrentVal = hp;
-
 		enemyTransform = GetComponent<Transform>();
-		//player = GameObject.FindWithTag ("Player").GetComponent(; //nie ustawiam w inspektorze, bo i tak tag player ma tylko gracz
 	}
 
 
