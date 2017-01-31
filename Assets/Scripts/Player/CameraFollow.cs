@@ -24,5 +24,9 @@ public class CameraFollow : MonoBehaviour {
 		if (Vector3.Distance (checkVector, myCamera.transform.position) > deadZone)
 			myCamera.transform.position = Vector3.Lerp (myCamera.transform.position, checkVector, speed * Time.deltaTime);
 		
+			//new Vector3 (player.transform.position.x, player.transform.position.y + cameraOffset, player.transform.position.z)
+		//Vector3 cameraPosition = new Vector3 (player.transform.position.x, player.transform.position.y + cameraOffset, myCamera.transform.position.z);
+
+		//myCamera.transform.position = cameraPosition;
 	}
 }

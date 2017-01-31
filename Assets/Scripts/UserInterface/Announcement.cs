@@ -162,7 +162,7 @@ public class Announcement : MonoBehaviour {
 		// Ustawienie losowego znaku w tablicy jako pusty
 		//if( removeRandom [removeCur] <= text.Length ) //poprawa bledu, ktory wywalal przy wylaczeniu mapy (?)
 		//Debug.Log("lol"); - blad powoduje wyrkzyknik
-		text [removeRandom [removeCur]].curChar = ' '; // Działa, ale czy to najefektywniejsze rozwiązanie?
+			text [removeRandom [removeCur]].curChar = ' '; // Działa, ale czy to najefektywniejsze rozwiązanie?
 		
 		removeCur++;
 

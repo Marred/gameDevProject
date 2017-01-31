@@ -5,10 +5,15 @@ using UnityEngine;
 [RequireComponent (typeof(Animator))]
 public class ThirdPersonCharacter : MonoBehaviour
 {
-	[SerializeField] float m_JumpPower = 11f;
+	//usuniete do obracania -90 i 90 stopni w y
+
+	[SerializeField] float m_JumpPower = 12f;
 	[Range (1f, 4f)][SerializeField] float m_GravityMultiplier = 2f;
 	[SerializeField] float m_RunCycleLegOffset = 0.2f;
 
+	//specific to the character in sample assets, will need to be modified to work with others
+	[SerializeField] float m_MoveSpeedMultiplier = 1f;
+	[SerializeField] float m_AnimSpeedMultiplier = 1f;
 	[SerializeField] float m_GroundCheckDistance = 0.1f;
 
 	Rigidbody m_Rigidbody;
@@ -18,6 +23,7 @@ public class ThirdPersonCharacter : MonoBehaviour
 	const float k_Half = 0.5f;
 
 	float m_ForwardAmount;
+	Vector3 m_GroundNormal;
 	float m_CapsuleHeight;
 	Vector3 m_CapsuleCenter;
 	CapsuleCollider m_Capsule;
@@ -27,10 +33,14 @@ public class ThirdPersonCharacter : MonoBehaviour
 	public Transform shoulderTrans;
 	public Transform rightShoulder;
 
+	//added
 	GameObject rsp;
+	//right shoulder pos
 	public Vector3 lookPos;
 
 	public bool hittingPlayer = false;
+
+	//temp:
 	public float aimAngle = 0f;
 
 
@@ -59,7 +69,6 @@ public class ThirdPersonCharacter : MonoBehaviour
 
 	}
 
-	// pobiera wspolrzedne myszki w trojwymiarze
 	void HandleAimingPos ()
 	{
 		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -70,85 +79,93 @@ public class ThirdPersonCharacter : MonoBehaviour
 			Vector3 lookP = hit.point;
 			lookP.z = transform.position.z;
 			lookPos = lookP;
+
+			//jesli gracz najezdza myszka na gracza, to nie przesuwaj
+			if (hit.collider.tag.Equals ("Player"))
+				hittingPlayer = true;
+			else
+				hittingPlayer = false;
 		}
 	}
-
-	//jesli gracz najezdza myszka na gracza, to nie przesuwaj
-	void OnMouseOver(){
-		if (gameObject.name == "Player")
-			hittingPlayer = true;
-	}
-	void OnMouseExit(){
-		if (gameObject.name == "Player")
-			hittingPlayer = false;
-	}
-
-	//obraca postac w strone myszki z wyzerowanym wektorem Y i Z rownym graczowi
 	void HandleRotation()
 	{
-		//lookPos - wspolrzedne punktu odbicia myszki raycastem od obiektu w swiecie 3d z wektorem Z gracza
 		Vector3 directionToLook = lookPos - transform.position;	
 		directionToLook.y = 0;
 
 		if (directionToLook == Vector3.zero) return;
-		Quaternion targetRotation = Quaternion.LookRotation (directionToLook); //wspolrzedne rotacji docelowej
+		Quaternion targetRotation = Quaternion.LookRotation (directionToLook);
 
-		// plynnie obraca gracza
+		//	Debug.Log (lookPos.x + " " + transform.position.x);
+
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 15);
+
+
 	}
 	void HandleShoulder ()
 	{
-		//Obliczanie kątu między trzema punktami - wierzcholkiem jest mysz, punktami gracz i glowa
 		aimAngle = (Mathf.Atan2 (transform.position.x - lookPos.x, transform.position.y - lookPos.y) - 
 			Mathf.Atan2 (headTarget.position.x - lookPos.x, headTarget.position.y - lookPos.y));
 
-		if (!hittingPlayer && (aimAngle < 0.9f || aimAngle > -0.9f)) {
+
+		lookPos.z = transform.position.z; //chyba niepotrzebne
+
+		float distanceFromPlayer = Vector3.Distance (lookPos, headTarget.position);
+
+		if (!hittingPlayer && distanceFromPlayer > 0.5 && (aimAngle < 0.9f || aimAngle > -0.9f)) {
 			shoulderTrans.LookAt (lookPos);
 
-			//ustawia ramie w pozycji startowej
 			Vector3 rightShoulderPos = rightShoulder.TransformPoint (Vector3.zero);
 			rsp.transform.position = rightShoulderPos;
 			rsp.transform.parent = transform;
 
-			shoulderTrans.position = rightShoulder.TransformPoint (Vector3.zero);
+			shoulderTrans.position = rsp.transform.position;
 		}
 
 	}
 
 	public void Move (Vector3 move, bool crouch, bool jump)
 	{
-		// wielkosc wektora. niepotrzebne?
-		//if (move.magnitude > 1f)
-		//	move.Normalize ();
 
-		//przeksztalca wektor ze skali globalnej do lokalnej obiektu
+		// convert the world relative moveInput vector into a local-relative
+		// turn amount and forward amount required to head in the desired
+		// direction.
+		if (move.magnitude > 1f)
+			move.Normalize ();
+
+
 		move = transform.InverseTransformDirection (move);
-		CheckGroundStatus ();
-		m_ForwardAmount = move.z;
 
+
+		CheckGroundStatus ();
+		move = Vector3.ProjectOnPlane (move, m_GroundNormal);
+
+		m_ForwardAmount = move.z;
+		float jumpDirection = move.x;
+
+		// control and velocity handling is different when grounded and airborne:
 		if (m_IsGrounded) {
 			HandleGroundedMovement (crouch, jump);
 		} else {
-			HandleAirborneMovement ();
+			HandleAirborneMovement (jumpDirection);
 		}
 
 		ScaleCapsuleForCrouching (crouch);
+		PreventStandingInLowHeadroom ();
+
+		// send input and other state parameters to the animator
 		UpdateAnimator (move);
 	}
 
-	//skaluje kapsule gracza o polowe
+
 	void ScaleCapsuleForCrouching (bool crouch)
 	{
-		//jesli jest na podlodze i naciska C, to zmniejsz kapsule o polowe
 		if (m_IsGrounded && crouch) {
-			
 			if (m_Crouching)
 				return;
-			
 			m_Capsule.height = m_Capsule.height / 2f;
 			m_Capsule.center = m_Capsule.center / 2f;
 			m_Crouching = true;
-		} else { //jesli nie naciska lub nie jest na podlodze, to sprawdz, czy cos nie naciska na jego glowe (jesli naciska, to kucnij, jesli nie to wstan)
+		} else {
 			Ray crouchRay = new Ray (m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
 			float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
 			if (Physics.SphereCast (crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore)) {
@@ -160,15 +177,30 @@ public class ThirdPersonCharacter : MonoBehaviour
 			m_Crouching = false;
 		}
 	}
-	//przesylanie danych do animatora i obliczanie z ktorej nogi wyskoczyc
+
+	void PreventStandingInLowHeadroom ()
+	{
+		// prevent standing up in crouch-only zones
+		if (!m_Crouching) {
+			Ray crouchRay = new Ray (m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
+			float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
+			if (Physics.SphereCast (crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore)) {
+				m_Crouching = true;
+			}
+		}
+	}
+
+
 	void UpdateAnimator (Vector3 move)
 	{
+		// update the animator parameters
 		m_Animator.SetFloat ("Forward", m_ForwardAmount, 0.1f, Time.deltaTime);
+		//m_Animator.SetFloat ("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
 		m_Animator.SetBool ("Crouch", m_Crouching);
 		m_Animator.SetBool ("OnGround", m_IsGrounded);
-
 		if (!m_IsGrounded) {
 			m_Animator.SetFloat ("Jump", m_Rigidbody.velocity.y);
+			//Debug.Log (m_Animator.GetFloat ("Jump"));
 		}
 
 		// calculate which leg is behind, so as to leave that leg trailing in the jump animation
@@ -182,43 +214,46 @@ public class ThirdPersonCharacter : MonoBehaviour
 			m_Animator.SetFloat ("JumpLeg", jumpLeg);
 		}
 
-		m_Animator.speed = 1;
+		// the anim speed multiplier allows the overall speed of walking/running to be tweaked in the inspector,
+		// which affects the movement speed because of the root motion.
+		if (m_IsGrounded && move.magnitude > 0) {
+			m_Animator.speed = m_AnimSpeedMultiplier;
+		} else {
+			// don't use that while airborne
+			m_Animator.speed = 1;
+		}
 	}
-	// operujemy graczem, gdy jest w powietrzu
-	void HandleAirborneMovement ()
+	void HandleAirborneMovement (float jumpDirection)
 	{
-		//pozwalamy graczowi poruszac sie w trakcie lotu
-		Vector3 airMove = new Vector3 (Input.GetAxis ("Horizontal") * 6f, m_Rigidbody.velocity.y, 0);
-		//spowalnia gracza, gdy chce leciec w kierunku odwrotnym do tego, z ktorego wyskoczyl
-		m_Rigidbody.velocity = Vector3.Lerp (m_Rigidbody.velocity, airMove, Time.deltaTime*2f); 
 
-		//nadajmy grawitacje
+		Vector3 airMove = new Vector3 (Input.GetAxis ("Horizontal") * 6f, m_Rigidbody.velocity.y, 0);
+		m_Rigidbody.velocity = Vector3.Lerp (m_Rigidbody.velocity, airMove, Time.deltaTime*2f);
 		Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
 		m_Rigidbody.AddForce (extraGravityForce);
 
-		//jezeli gracz juz nie spada, to ustalmy wartosci sprawdzajacej wysokosc gracza na normalna
 		m_GroundCheckDistance = m_Rigidbody.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.001f;
 	}
 
-	//operujemy graczem gdy stoi
 	void HandleGroundedMovement (bool crouch, bool jump)
 	{
-		// sprawdzenie, czy mozna skakac
+		// check whether conditions are right to allow a jump:
 		if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo (0).IsName ("Grounded")) {
-			// nadajemy wyskok
+			// jump!
 			m_Rigidbody.velocity = new Vector3 (m_Rigidbody.velocity.x, m_JumpPower, 0); //EDYTOWANE
+			//m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z); 
 			m_IsGrounded = false;
+			//m_Animator.applyRootMotion = false;
 			m_GroundCheckDistance = 0.1f;
 		}
 	}
 
-	// Nadpisujemy funkcje domyslnego poruszania, aby zmienic predkosc postaci przed jej nadaniem
 	public void OnAnimatorMove ()
 	{
-		// Time.deltaTime > 0 to sprawdzenie czy timescale nie jest 0
+		// we implement this function to override the default root motion.
+		// this allows us to modify the positional speed before it's applied.
 		if ( m_IsGrounded && Time.deltaTime > 0) {
-			Vector3 v = (m_Animator.deltaPosition * 0.8f) / Time.deltaTime;
-			// zostawiamy wysokosc
+			Vector3 v = (m_Animator.deltaPosition * m_MoveSpeedMultiplier) / Time.deltaTime;
+			// we preserve the existing y part of the current velocity.
 			v.y = m_Rigidbody.velocity.y;
 
 			//Wyzerowanie wektora Z naprawia niepożadądane poruszanie postaci się wertykalnie
@@ -235,9 +270,16 @@ public class ThirdPersonCharacter : MonoBehaviour
 		// it is also good to note that the transform position in the sample assets is at the base of the character
 		Vector3 p1 = transform.position + m_Capsule.center;
 		if (Physics.SphereCast (p1 + (Vector3.up * 0.2f), m_Capsule.height / 2, Vector3.down, out hitInfo, m_GroundCheckDistance)) {
+
+			//Debug.DrawRay (transform.position + (Vector3.up * 0.1f), Vector3.down, Color.green);
+			m_GroundNormal = hitInfo.normal;
+
 			m_IsGrounded = true;
+			//m_Animator.applyRootMotion = true;
 		} else {
 			m_IsGrounded = false;
+			m_GroundNormal = Vector3.up;
+			//m_Animator.applyRootMotion = false;
 		}
 	}
 }
