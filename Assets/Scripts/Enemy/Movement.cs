@@ -156,7 +156,7 @@ public class Movement : MonoBehaviour {
     void CheckForObstacles()
     {
         isGrounded = Physics.CheckBox(myPosition, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer);
-        onEdge = !Physics.CheckBox(direction, new Vector3(0, 0, -0.05f), Quaternion.Euler(0, 0, 0), groundLayer);
+        onEdge = !Physics.CheckBox(direction, new Vector3(0, 0, 0.05f), Quaternion.Euler(0, 0, 0), groundLayer);
         isColliding = Physics.CheckBox(direction + new Vector3(collisionModifier, 0.75f, 0), new Vector3(0, 0.6f, 0.35f), Quaternion.Euler(0, 0, 0), collisionLayer);
         if (isGrounded)
         {
