@@ -4,6 +4,7 @@ using System.Collections;
 
 public class RockScript : MonoBehaviour {
 
+    public GameObject particles;
     private GameObject player;
     private Player playerScript;
     private float speed;
@@ -28,14 +29,13 @@ public class RockScript : MonoBehaviour {
         {
             playerScript.health.CurrentVal -= 5;
             player.GetComponent<Rigidbody>().AddForce(-20, 0, 0, ForceMode.Impulse);
-            Destroy(this.gameObject);
         }
         else if (collider.tag == "Enemy")
         {
             //player.GetComponent<Rigidbody>().AddForce(-10, 0, 0, ForceMode.Impulse);
-            Destroy(this.gameObject);
             Destroy(collider.gameObject);
         }
-        else Destroy(this.gameObject);
+        Destroy(this.gameObject);
+        Instantiate(particles, transform.position, Quaternion.identity);
     }
 }

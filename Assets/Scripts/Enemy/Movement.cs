@@ -34,7 +34,6 @@ public class Movement : MonoBehaviour {
     bool goingRight = true;
 
     bool ignoreEdge = false;
-    bool canJump;
     public bool isGrounded;
     bool goingUp;
 
@@ -112,10 +111,9 @@ public class Movement : MonoBehaviour {
             else if ((targetPosition.y - myPosition.y) > 2.5)
             {
                 //Debug.Log("Gracz jest powyżej");
-                canJump = (Physics.CheckBox(offset, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
-                & !Physics.CheckBox(myPosition + new Vector3(0f, 3f, 0), new Vector3(1.3f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer));
 
-                if (canJump)
+                if ((Physics.CheckBox(offset, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
+                & !Physics.CheckBox(myPosition + new Vector3(0f, 3f, 0), new Vector3(1.3f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer)))
                 {
                     //Debug.Log("Skok w przód");
                     rb.velocity = new Vector3(0, 9f, 0);
@@ -133,10 +131,6 @@ public class Movement : MonoBehaviour {
             {
                 goingUp = false;
                 //Debug.Log("Gracz jest na tym samym poziomie");
-                /*if (onEdge)
-                {
-                    rb.velocity = new Vector3(1f, 1f, 0);
-                }*/
                 ignoreEdge = true;
             }
         }
