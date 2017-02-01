@@ -139,6 +139,7 @@ public class GameSave : MonoBehaviour
         player.deaths = data.deaths;
         Save();
 		Time.timeScale = 1;
+		player.exp.MaxVal = player.playerLevel.CurrentVal * 5;  
     }
     [Serializable]
     class PlayerData
