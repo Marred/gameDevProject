@@ -4,7 +4,7 @@ using System.Collections;
 public class SaveLoad : MonoBehaviour
 {
     [SerializeField]private Player player;
-    [SerializeField]private Camera camera;
+    [SerializeField]private Camera myCamera;
 
 
     void Start()
@@ -41,7 +41,7 @@ public class SaveLoad : MonoBehaviour
         player.playerLevel.CurrentVal = PlayerPrefs.GetFloat("PlayerLevel");
 
         transform.position = new Vector3(x, y, z);
-        camera.transform.position = transform.position + new Vector3(x, 1.88f, -5.22f);
+        myCamera.transform.position = transform.position + new Vector3(x, 1.88f, -5.22f);
 
         Debug.Log("Loaded");
     }

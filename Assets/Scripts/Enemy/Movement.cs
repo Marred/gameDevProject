@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour {
     public bool isGrounded;
     bool goingUp;
 
-    Vector3 patrolStartPosition;
+   // Vector3 patrolStartPosition; nieuzywane
     public float patrolDistance;
 
     void Start()
@@ -45,7 +45,7 @@ public class Movement : MonoBehaviour {
         SetDirection(goingRight);
         heightModifier = new Vector3(0, heightDifference, 0);
         myPosition = transform.position + heightModifier;
-        patrolStartPosition = myPosition;
+       // patrolStartPosition = myPosition;
         //Ustawia targetPosition na pozycję niemożliwą do osiągnięcia, pozwala zacząć pętlę GoTo jeśli targetPosition jest inne niż nullPosition i zakończyć, jeśli takie same
         nullPosition = new Vector3(0, -100f, 0);
         targetPosition = nullPosition;
@@ -77,7 +77,7 @@ public class Movement : MonoBehaviour {
         if(myPosition == targetPosition)
         {
             targetPosition = nullPosition;
-            patrolStartPosition = myPosition;
+           // patrolStartPosition = myPosition; nieuzywane
         }
         //Jeżeli cel jest bezpośrednio nad nami ustawia zmienną potrzebną do wykonania skoku
         if ((myPosition.x > targetPosition.x ? myPosition.x - targetPosition.x : targetPosition.x - myPosition.x)<0.05)

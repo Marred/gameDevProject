@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class questTrigger : MonoBehaviour {
 	private bool isColliding;
 	private bool informed = false;
-	public Player player;
+	[SerializeField] private Player player;
+	[SerializeField] private GameSave mySave;
 
 	void OnTriggerEnter(Collider other) {
 		if(isColliding) return;
@@ -13,7 +15,9 @@ public class questTrigger : MonoBehaviour {
 		if (other.gameObject.tag == "Player" ) 
 		{
 			if (player.playerLevel.CurrentVal >= 3) {
-				Application.LoadLevel ("Daniel"); //albo main menu (chyba trzeba zasaveowac)
+				mySave.Save (true);
+				SceneManager.LoadScene("Daniel");
+				//Application.LoadLevel ("Daniel"); //albo main menu (chyba trzeba zasaveowac)
 			} else if (!informed) {
 				StartCoroutine (inform ());
 			}

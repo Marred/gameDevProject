@@ -27,8 +27,8 @@ public class PlanetGameController : MonoBehaviour {
     public List<GameObject> floors = new List<GameObject>();
     bool elevatorStarted = false;
 
-    public Light light;
-    public AudioSource audio;
+    public Light sLight;
+    public AudioSource sAudio;
     public GameObject traps;
     public int trapsDelay;
     private float trapsTimer;
@@ -46,8 +46,8 @@ public class PlanetGameController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<Player>();
         rnd = new System.Random();
-        light = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Light>();
-        audio = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
+        sLight = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Light>();
+        sAudio = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<AudioSource>();
 
         floors.Add(floor0);
         floors.Add(floor2);
@@ -74,7 +74,7 @@ public class PlanetGameController : MonoBehaviour {
             timerLabel.text = Math.Floor(timer).ToString() + "s";
 
             //migające światło, mathf.movetowards(zmieniana wartość, wartość którą chcemy osiągnąć, o ile zmieniamy wartość)
-            currentIntensity = Mathf.MoveTowards(light.intensity, targetIntensity, Time.deltaTime * pulseSpeed);
+            currentIntensity = Mathf.MoveTowards(sLight.intensity, targetIntensity, Time.deltaTime * pulseSpeed);
             //jeżeli osiągniemy bądź przekroczymy maksymalną, upewniamy się że jest dokładnie równa maksymalnej dla dokładności obliczeń, po czym podmieniamy targetIntensity z równania wyżej
             if (currentIntensity >= maxIntensity)
             {
@@ -88,7 +88,7 @@ public class PlanetGameController : MonoBehaviour {
                 targetIntensity = maxIntensity;
             }
             //ustawiamy obliczoną wartość
-            light.intensity = currentIntensity;
+            sLight.intensity = currentIntensity;
 
 
             //lasery włączone gdy reszta z dzielenia timera przez trapsdelay daje 0, więc co trapsDelay sekund
@@ -104,9 +104,9 @@ public class PlanetGameController : MonoBehaviour {
         { 
             //jeśli gracz opuści statek:
             //wyciszamy syrenę, usuwamy pozostały czas z HUDa, zmieniamy kolor światła, zasłaniamy statek i blokujemy wejście
-            audio.volume = Mathf.MoveTowards(audio.volume, 0f, Time.deltaTime / 3);
+            sAudio.volume = Mathf.MoveTowards(sAudio.volume, 0f, Time.deltaTime / 3);
             timerLabel.text = "";
-            light.color = Color.white;
+            sLight.color = Color.white;
             blockShip.SetActive(true);
             shipBackground.SetActive(false);
         }

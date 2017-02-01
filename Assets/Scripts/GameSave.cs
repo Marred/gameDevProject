@@ -19,32 +19,13 @@ public class GameSave : MonoBehaviour
     float playerLevel;
     Scene scene;
     bool beingLoaded = false;
-    int cos;
     public bool controler = true;
     void Awake()
     {
-        Debug.Log("nowa"); cos = 1;
         scene = SceneManager.GetActiveScene();
         if (scene.name != "mainMenu") { player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>(); }
-        /*if (controler)
-        {
-            if (control == null)
-            {
-                DontDestroyOnLoad(gameObject);
-                control = this;
-            }
-            else if (control != this)
-            {
-                Destroy(this);
-            }
-        }*/
     }
-   /* void OnLevelWasLoaded()
-    {
-        //
-        Debug.Log(cos);
-    }
-    */
+
     void Update()
     {
         scene = SceneManager.GetActiveScene();
@@ -79,11 +60,11 @@ public class GameSave : MonoBehaviour
         bf.Serialize(file, save);
         file.Close();
     }
-    public void Save()
+	public void Save( bool loadOnNewScene=false )
     {
         Debug.Log("zapis na scenie o nazwie: " + scene.name);
         PlayerData data = new PlayerData();
-        data.beingLoaded = false;
+        data.beingLoaded = loadOnNewScene;
         data.scena = scene.name;
         data.health = player.health.CurrentVal;
         data.experience = player.exp.CurrentVal;
@@ -124,8 +105,8 @@ public class GameSave : MonoBehaviour
         data.beingLoaded = true;
         saveFile(data);
         SceneManager.LoadScene(data.scena);
-
     }
+
     public void Load()
     {
         PlayerData data = readFile();
@@ -157,6 +138,7 @@ public class GameSave : MonoBehaviour
         player.enemiesKilled = data.enemiesKilled;
         player.deaths = data.deaths;
         Save();
+		Time.timeScale = 1;
     }
     [Serializable]
     class PlayerData

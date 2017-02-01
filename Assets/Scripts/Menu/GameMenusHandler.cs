@@ -14,11 +14,6 @@ public class GameMenusHandler : MonoBehaviour
 
 	private AudioSource[] allAudioSources;
 
-	private Player player;
-
-	void Start(){
-		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-	}
     void Update()
     {
         //pauzowanie klawiszem escape

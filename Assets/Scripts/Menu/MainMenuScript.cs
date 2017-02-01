@@ -7,7 +7,8 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour {
-    
+	//plik chyba nieuzywany. wywalic?
+    /*
 	public void SetScene () {
 
         SceneManager.LoadScene(1);
@@ -51,6 +52,6 @@ public class MainMenuScript : MonoBehaviour {
         public int deaths;
         public string scena;
     }
-
+*/
 
 }
