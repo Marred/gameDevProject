@@ -6,44 +6,28 @@ public class questTrigger : MonoBehaviour {
 	private bool informed = false;
 	public Player player;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
 	void OnTriggerEnter(Collider other) {
 		if(isColliding) return;
 		isColliding = true;
 
 		if (other.gameObject.tag == "Player" ) 
 		{
-			if (player.playerLevel.CurrentVal >= 5) {
+			if (player.playerLevel.CurrentVal >= 3) {
 				Application.LoadLevel ("Daniel"); //albo main menu (chyba trzeba zasaveowac)
 			} else if (!informed) {
 				StartCoroutine (inform ());
 			}
-				
-			Debug.Log ("Hello player");
-		
 		}
 	}
 
 	IEnumerator inform(){
-		player.makeAnnouncement ("general", "You need 5th level");
+		player.makeAnnouncement ("general", "You need 3rd level");
 		informed = true;
-		yield return new WaitForSeconds (5);
+		yield return new WaitForSeconds (10);
 		informed = false;
 
 	}
 
-	void OnTriggerExit(Collider other) {
-		if (other.gameObject.tag == "Player" ) 
-		{
-			Debug.Log ("Bye player");
-
-		}
-	}
-	// Update is called once per frame
 	void Update () {
 		isColliding = false;
 	}
