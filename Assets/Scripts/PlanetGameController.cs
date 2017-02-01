@@ -62,27 +62,36 @@ public class PlanetGameController : MonoBehaviour {
 	
 	void Update () {
 	
+        //wywoływane gdy gracz jest na statku
         if(player.transform.position.x <= 71)
         {
+            //upewnia się, że wyjście jest otwarte a statek nie jest zasłonięty
             blockShip.SetActive(false);
             shipBackground.SetActive(true);
+            //liczy czas, zabija gracza jeśli się skończy i wyświetla pozostały czas - math.floor aby wyświetlać tylko pełne sekundy
             timer -= Time.deltaTime;
             if (timer <= 0) playerScript.health.CurrentVal = 0;
             timerLabel.text = Math.Floor(timer).ToString() + "s";
 
+            //migające światło, mathf.movetowards(zmieniana wartość, wartość którą chcemy osiągnąć, o ile zmieniamy wartość)
             currentIntensity = Mathf.MoveTowards(light.intensity, targetIntensity, Time.deltaTime * pulseSpeed);
+            //jeżeli osiągniemy bądź przekroczymy maksymalną, upewniamy się że jest dokładnie równa maksymalnej dla dokładności obliczeń, po czym podmieniamy targetIntensity z równania wyżej
             if (currentIntensity >= maxIntensity)
             {
                 currentIntensity = maxIntensity;
                 targetIntensity = minIntensity;
+            //to samo dla minimalnej
             }
             else if (currentIntensity <= minIntensity)
             {
                 currentIntensity = minIntensity;
                 targetIntensity = maxIntensity;
             }
+            //ustawiamy obliczoną wartość
             light.intensity = currentIntensity;
 
+
+            //lasery włączone gdy reszta z dzielenia timera przez trapsdelay daje 0, więc co trapsDelay sekund
             trapsTimer += Time.deltaTime;
             if (Math.Floor(trapsTimer) % trapsDelay == 0)
             {
@@ -92,24 +101,31 @@ public class PlanetGameController : MonoBehaviour {
 
         }
         else
-        {
-            audio.volume = Mathf.MoveTowards(audio.volume, 0f, Time.deltaTime / 5);
+        { 
+            //jeśli gracz opuści statek:
+            //wyciszamy syrenę, usuwamy pozostały czas z HUDa, zmieniamy kolor światła, zasłaniamy statek i blokujemy wejście
+            audio.volume = Mathf.MoveTowards(audio.volume, 0f, Time.deltaTime / 3);
             timerLabel.text = "";
             light.color = Color.white;
             blockShip.SetActive(true);
             shipBackground.SetActive(false);
         }
 
+        //włącza windę, jeśli gracz osiągnie odpowiednią pozycję i nie jest jeszcze włączona
         if(player.transform.position.x > 216 && !elevatorStarted)
         {
+            //neguje warunek z ifa
             elevatorStarted = true;
+            //wywołuje ściany, laser i podpięty dźwięk
             elevator.SetActive(true);
+            //wywołuje korutynę aby odczekać do zakończenia dźwięku przed startem windy
             StartCoroutine("ElevatorStarter");
         }
 	}
 
     IEnumerator ElevatorStarter()
     {
+        //czeka 3 sekundy, usuwa pełną podłogę z windy, wywołuje funkcję generowania podłóg oraz generuje kilka pierwszych podłóg
         yield return new WaitForSeconds(3);
         coverFloor.SetActive(false);
         InvokeRepeating("spawnFloor", 0f, 1.45f);
@@ -123,19 +139,8 @@ public class PlanetGameController : MonoBehaviour {
 
     void spawnEnemy()
     {
-        float spawnHeight = 1f;
-        switch (rnd.Next(3))
-        {
-            case 0:
-                spawnHeight = 1f;
-                break;
-            case 1:
-                spawnHeight = 4.5f;
-                break;
-            case 2:
-                spawnHeight = 8f;
-                break;
-        }
+        float spawnHeight = randomHeight();
+        //jeżeli gracz nie jest ani na statku ani w windzie, generuje losowo jednego z dwóch przeciwników 20 jednostek przed graczem na losowym poziomie
         if (190 >= player.transform.position.x && player.transform.position.x >= 71) {
             if (rnd.Next(2) == 0) Instantiate(meleeEnemy, new Vector3(player.transform.position.x + 20, spawnHeight, 0), Quaternion.identity);
             else Instantiate(ufoEnemy, new Vector3(player.transform.position.x + 20, spawnHeight, 0), Quaternion.identity);
@@ -145,30 +150,35 @@ public class PlanetGameController : MonoBehaviour {
 
     void spawnRock()
     {
-        float spawnHeight = 1f;
-        switch(rnd.Next(3))
+        float spawnHeight = randomHeight();
+        //jeżeli gracz nie jest ani na statku ani w windzie, generuje kamień 20 jednostek przed graczem na losowym poziomie
+        if (190 >= player.transform.position.x && player.transform.position.x >= 71) Instantiate(rock, new Vector3(player.transform.position.x + 20, spawnHeight, 0), Quaternion.identity);
+    }
+
+    float randomHeight()
+    {
+        //zwraca losowo jedną z 3 wysokości
+        switch (rnd.Next(3))
         {
             case 0:
-                spawnHeight = 1f;
-                break;
+                return 1f;
             case 1:
-                spawnHeight = 4.5f;
-                break;
+                return 4.5f;
             case 2:
-                spawnHeight = 8f;
-                break;
+                return 8f;
         }
-
-        if (190 >= player.transform.position.x && player.transform.position.x >= 71) Instantiate(rock, new Vector3(player.transform.position.x + 20, spawnHeight, 0), Quaternion.identity);
+        return 1f;
     }
 
     void spawnFloor()
     {
+        //generuje podłogi na samym dole windy
         if (player.transform.position.x >= 211.5) instantiateFloor(-30f);
     }
 
     void instantiateFloor(float x)
     {
+        //generuje losową podłogę na x wysokości
         Instantiate(floors[rnd.Next(floors.Count)], new Vector3(217, x, 0), Quaternion.identity);
     }
 }

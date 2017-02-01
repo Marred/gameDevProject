@@ -14,8 +14,7 @@ public class RockScript : MonoBehaviour {
     void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         playerScript = player.GetComponent<Player>();
-        rnd = new System.Random();
-
+        //unityengine.random, bo systemowy nie wspiera floatów
         speed = UnityEngine.Random.Range(0.1f, 0.3f);
     }
 	
@@ -25,16 +24,18 @@ public class RockScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collider)
     {
+        //jeśli trafia gracza, odejmuje hp i odpycha go
         if (collider.tag == "Player")
         {
             playerScript.health.CurrentVal -= 5;
             player.GetComponent<Rigidbody>().AddForce(-20, 0, 0, ForceMode.Impulse);
         }
+        //jeśli trafia przeciwnika, od razu go zabija
         else if (collider.tag == "Enemy")
         {
-            //player.GetComponent<Rigidbody>().AddForce(-10, 0, 0, ForceMode.Impulse);
             Destroy(collider.gameObject);
         }
+        //niszczenie kamienia i particle system
         Destroy(this.gameObject);
         Instantiate(particles, transform.position, Quaternion.identity);
     }

@@ -11,8 +11,9 @@ public class LaserScript : MonoBehaviour {
     } 
     private void OnTriggerEnter(Collider collider)
     {
+        //zabija gracza jeśli wejdzie w laser
         Debug.Log(collider);
-        if (collider.tag == "Player") playerScript.health.CurrentVal -= 200;
+        if (collider.tag == "Player") playerScript.health.CurrentVal = 0;
         else Destroy(collider.gameObject);
 
     }

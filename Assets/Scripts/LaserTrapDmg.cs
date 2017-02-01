@@ -9,6 +9,7 @@ public class LaserTrapDmg : MonoBehaviour {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
+    //odejmuje graczowi hp gdy pozostaje w wiązce lasera zamiast jednorazowo
     private void OnTriggerStay(Collider collider)
     {
         if (collider.tag == "Player")

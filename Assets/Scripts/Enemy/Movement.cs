@@ -52,44 +52,39 @@ public class Movement : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player");
     }
-
 	void FixedUpdate()
     {
+        //miejsce, w którym stoi przeciwnik
         myPosition = transform.position + heightModifier;
-        Debug.DrawLine(myPosition, offsetBack, Color.blue);
-        Debug.DrawLine(myPosition, offset, Color.red);
+        //sprawdza kolizje lub koniec platformy i zawraca, jeśli jest taka potrzeba
         CheckForObstacles();
-
-        //if hit ustaw targetPosition na obecną pozycję gracza
-
+        //sprawdza, czy gracz znajduje się w zasięgu modyfikowanym poprzez searchDistance, jeśli tak, ustawia jego pozycję jako cel
         CheckForPlayer();
-        
+        //wykonuje ruch jeśli cel nie jest równy null position
         if (targetPosition != nullPosition)
         {
             GoTo(targetPosition);
         }
-
+        //ustawia kierunek w prawo, jeśli true, w lewo, jeśli false
         SetDirection(goingRight);
-
+        //wykonuje ruch w określonym kierunku
         Move(direction);
     }
-
     //Udaj się do wskazanej pozycji
     void GoTo(Vector3 targetPosition)
     {
-        
         //Sprawdza, czy dotarł do celu, jesli tak, przerywa pętlę GoTo unieważniając warunek w funkcji Update
         if(myPosition == targetPosition)
         {
             targetPosition = nullPosition;
             patrolStartPosition = myPosition;
         }
-        //Sprawdza, czy gracz jest z lewej czy prawej strony i ustawia kierunek
+        //Jeżeli cel jest bezpośrednio nad nami ustawia zmienną potrzebną do wykonania skoku
         if ((myPosition.x > targetPosition.x ? myPosition.x - targetPosition.x : targetPosition.x - myPosition.x)<0.05)
         {
             goingUp = true;
-            //Debug.Log("Szukam drogi do góry");
         }
+        //ustawia zmienną kierunku
         if (myPosition.x > targetPosition.x & goingUp == false)
         {
             goingRight =false;
@@ -105,23 +100,19 @@ public class Movement : MonoBehaviour {
             //Sprawdza, czy gracz poniżej, jeśli tak ignoruje krawędzie i spada niżej
             if ((myPosition.y - targetPosition.y) > 0.5)
             {
-                //Debug.Log("Gracz jest poniżej" + (transform.position.y - targetPosition.y));
                 ignoreEdge = true;
             }
+            //jeżeli gracz jest powyżej, szuka platformy nad sobą i wskakuje na nią
             else if ((targetPosition.y - myPosition.y) > 2.5)
             {
-                //Debug.Log("Gracz jest powyżej");
-
                 if ((Physics.CheckBox(offset, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
                 & !Physics.CheckBox(myPosition + new Vector3(0f, 3f, 0), new Vector3(1.3f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer)))
                 {
-                    //Debug.Log("Skok w przód");
                     rb.velocity = new Vector3(0, 9f, 0);
                 }
                 if (goingUp & (Physics.CheckBox(offsetBack, new Vector3(0, 0, 0), Quaternion.Euler(0, 0, 0), groundLayer)
                 & !Physics.CheckBox(myPosition + new Vector3(0f, 3f, 0), new Vector3(1.35f, 0.5f, 0), Quaternion.Euler(0, 0, 0), groundLayer)))
                 {
-                    //Debug.Log("Obrót");
                     goingUp = false;
                     goingRight = !goingRight;
                     SetDirection(goingRight);
@@ -129,14 +120,12 @@ public class Movement : MonoBehaviour {
             }
             else
             {
+                //wywoływane jeśli gracz jest na tym samym poziomie
                 goingUp = false;
-                //Debug.Log("Gracz jest na tym samym poziomie");
                 ignoreEdge = true;
             }
         }
     }
-
-
     //sprawdza, czy gracz jest w zasięgu, jeśli tak ustawia targetPosition na niego
     void CheckForPlayer()
     {
@@ -145,7 +134,6 @@ public class Movement : MonoBehaviour {
             targetPosition = player.transform.position;
         }
     }
-
     //sprawdza, czy przed nim nie ma kolizji bądź nie kończy się krawędź, jeśli tak, zmienia kierunek
     void CheckForObstacles()
     {
@@ -161,7 +149,6 @@ public class Movement : MonoBehaviour {
             }
         }
     }
-
     //ustawia kierunki right i left, ustawia direction przed sobą
     void SetDirection(bool goingRight)
     {
@@ -185,16 +172,12 @@ public class Movement : MonoBehaviour {
             offsetBack = offsetRight;
         }
     }
-
     //wykonuje ruch w kierunku direction
     void Move(Vector3 direction)
     {
-        
         if (Vector3.Distance(myPosition, targetPosition) > stopDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, direction-heightModifier, speed*Time.deltaTime);
         }
-
     }
-    
 }

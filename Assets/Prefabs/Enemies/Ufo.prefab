@@ -453,7 +453,7 @@ MonoBehaviour:
   collisionModifier: 1.3
   heightDifference: -1.22
   searchDistance: 200
-  stopDistance: 4
+  stopDistance: 2
   isColliding: 0
   onEdge: 0
   isGrounded: 0
@@ -469,6 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37378819c025cee41be405d3ffcbbaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBoss: 0
   dmgtext: {fileID: 1000011754910636, guid: cbf5e43fc7ff32147b9445c4f1b82147, type: 2}
   enemyHealth:
     bar: {fileID: 0}

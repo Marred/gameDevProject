@@ -17,13 +17,14 @@ public class PlayerDeath : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
-
+        //gdy hp spadnie do 0 aktywuj Death()
 	    if(player.health.CurrentVal == 0 && isDead == false)
         {
             Death();
             isDead = true;
         }
-        if(isDead == true& canvasGroup.alpha < 1)
+        //stopniowo przyciemnia ekran po śmierci gracza
+        if(isDead == true & canvasGroup.alpha < 1)
         {
             canvasGroup.alpha = canvasGroup.alpha + 0.01f;
         }
@@ -31,6 +32,7 @@ public class PlayerDeath : MonoBehaviour {
 
     void Death()
     {
+        //generuje grób i dym w miejscu śmierci, zmniejsza gracza i włącza canvas z informacją o śmierci
         Instantiate(grave, player.transform.position+new Vector3(0, 0.12f, 0.75f), Quaternion.Euler(0, 135, 0));
         Instantiate(smoke, player.transform.position, Quaternion.Euler(-90, 0, 0));
         player.transform.localScale = new Vector3(0, 0, 0);
