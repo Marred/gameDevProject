@@ -131,10 +131,6 @@ public class PlanetGameController : MonoBehaviour {
         InvokeRepeating("spawnFloor", 0f, 1.45f);
         instantiateFloor(0.05f);
         instantiateFloor(-5f);
-        instantiateFloor(-10f);
-        instantiateFloor(-15f);
-        instantiateFloor(-20f);
-        instantiateFloor(-25f);
     }
 
     void spawnEnemy()
@@ -173,7 +169,7 @@ public class PlanetGameController : MonoBehaviour {
     void spawnFloor()
     {
         //generuje podłogi na samym dole windy
-        if (player.transform.position.x >= 211.5) instantiateFloor(-30f);
+        if (player.transform.position.x >= 211.5) instantiateFloor(-10f);
     }
 
     void instantiateFloor(float x)
