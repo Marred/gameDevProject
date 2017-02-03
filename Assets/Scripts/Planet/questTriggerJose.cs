@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 public class questTriggerJose : MonoBehaviour
 {
     private bool isColliding;
-    private bool informed = false;
-    [SerializeField]
-    private Player player;
+//    private bool informed = false;
+   // [SerializeField]
+   // private Player player;
     [SerializeField]private GameSave mySave;
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+       // player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void OnTriggerEnter(Collider other)

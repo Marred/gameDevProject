@@ -17,8 +17,8 @@ public class MovePlatform : MonoBehaviour
 	void Update()
 	{
 		transform.position = Vector3.Lerp(frometh, untoeth,
-			Mathf.SmoothStep(0f,1f,
-				Mathf.PingPong(Time.time/secondsForOneLength, 1f)
-			) );
+			Time.time/secondsForOneLength
+		);
+		//Debug.Log (transform.position);
 	}
 }

@@ -14,9 +14,9 @@ public class horizontalPlatform : MonoBehaviour {
 
 	void Update()
 	{
+		//smoothstep dziala jak lerp, tylko przyspiesza na poczatku i zwalnia na koncu
 		transform.position = Vector3.Lerp(frometh, untoeth,
-			Mathf.SmoothStep(0f,1f,
-				Mathf.PingPong(Time.time/secondsForOneLength, 1f)
-			) );
+			Time.time/secondsForOneLength
+	);
 	}
 }
