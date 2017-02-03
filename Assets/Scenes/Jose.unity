@@ -9226,7 +9226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1899bcfc59fd0e44f882e05e9690f14e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3335280}
   mySave: {fileID: 1554757582}
 --- !u!1 &1003895861
 GameObject:
@@ -11900,7 +11899,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000012260296564, guid: 6507fcd121d20ce47a3bc91e90355131, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 210
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000012260296564, guid: 6507fcd121d20ce47a3bc91e90355131, type: 2}
       propertyPath: m_LocalPosition.y
