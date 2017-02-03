@@ -8,13 +8,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour {
 	//plik chyba nieuzywany. wywalic?
-    /*
+    
 	public void SetScene () {
 
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("Kajetan");
 
     } 
-    public void loadGame()
+  /*  public void loadGame()
     {
         if (!File.Exists(Application.persistentDataPath + "/playerInfo.dat")) return;
         BinaryFormatter bf = new BinaryFormatter();
@@ -22,12 +22,12 @@ public class MainMenuScript : MonoBehaviour {
         PlayerData data = (PlayerData)bf.Deserialize(file);
         file.Close();
         SceneManager.LoadScene(data.scena);
-    }
+    }*/
 	public void Quit()
 	{
 		Application.Quit();
 	}
-
+	/*
     [Serializable]
     class PlayerData
     {

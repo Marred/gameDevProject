@@ -49,6 +49,16 @@ public class GameSave : MonoBehaviour
         {
             Load();
         }
+
+		if (Input.GetKey (KeyCode.F6)) {
+			if (scene.name == "Kajetan") {
+				Save (true);
+				SceneManager.LoadScene ("Jose");
+			} else if (scene.name == "Jose") {
+				Save (true);
+				SceneManager.LoadScene ("Daniel");
+			}
+		}
         //  if (beingLoaded) { Load(); }
     }
 

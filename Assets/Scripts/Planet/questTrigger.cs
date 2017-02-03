@@ -16,7 +16,7 @@ public class questTrigger : MonoBehaviour {
 		{
 			if (player.playerLevel.CurrentVal >= 3) {
 				mySave.Save (true);
-				SceneManager.LoadScene("Daniel");
+				SceneManager.LoadScene("Jose");
 				//Application.LoadLevel ("Daniel"); //albo main menu (chyba trzeba zasaveowac)
 			} else if (!informed) {
 				StartCoroutine (inform ());
